@@ -5,11 +5,11 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { ProSidebarProvider } from 'react-pro-sidebar';
 import Slidebar from '../../Slidebar';
-import "./tables.css";
+import "../tables.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import Button from 'react-bootstrap/Button';
 
-export default function Dispatch2() {
+export default function Dispatch() {
   const [items, setItems] = useState([]);
   const [counter, setCounter] = useState(2);
   
@@ -400,16 +400,5 @@ export default function Dispatch2() {
 }
 
 
-// <h1>DISPATCH SECTION </h1>
-// <div className="date">
-// <label for="date">DATE:</label>
-// <input type="date" id="date" name="date" />
-// </div>
-// <br />
-// <br />
-// <button onClick={addRow}>Click me</button>
 
 
-// <br />
-// <br />
-// <button onClick={submit}>Submit</button>

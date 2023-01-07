@@ -1,7 +1,7 @@
 import './App.css';
 import Vendor from './Vendor';
 import Purchase from './Components/purchaseComponent/purchase';
-import Dispatch from './Dispatch';
+
 import Report from './Report';
 import Category from './Category';
 import { ProSidebarProvider } from 'react-pro-sidebar';
@@ -14,6 +14,7 @@ import CatogeryRp from './Components/Reoprt/CatogeryRp';
 import AverageRp from './Components/Reoprt/AverageRp';
 import MonthlyRp from './Components/Reoprt/MonthlyRp';
 import ItemRp from './Components/Reoprt/ItemRp';
+import Dispatch from './Components/dispatchComponent/dispatch';
 
 function App() {
   return (
