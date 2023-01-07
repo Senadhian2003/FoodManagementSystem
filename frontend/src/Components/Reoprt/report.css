@@ -1,0 +1,38 @@
+.cat{
+    height:300px;
+    width: 25%;
+    margin-top: 5%;
+    margin-left: 5%;
+}
+
+.ser{
+    margin-left: 30% !important;
+}
+.ser-col{
+    margin-top: 70px;
+}
+.inpt-catg{
+    margin-left: 10px !important;
+}
+.btn-b{
+    margin-top: 20px;
+}
+.tab-it{
+    margin-top: 50px;
+}
+.itm{
+    margin-top: 50px;
+}
+.itm-c{
+    margin-left: 30%;
+}
+.tab-col{
+    margin-top: 50px;
+    padding: 20px;
+    width: 90%;
+    margin-left: 60px;
+}
+.r-p{
+    margin-top: 50px;   
+    margin-left: 40px;
+}
