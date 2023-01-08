@@ -8,15 +8,14 @@ import Slidebar from '../../Slidebar';
 import "../tables.css";
 
 export default function Purchase() {
+  
   const [items, setItems] = useState([]);
   const [counter, setCounter] = useState(2);
 
-
   useEffect(() => {
     axios
-      .get("http://localhost:3000/purchase/getItems")
+      .get("http://localhost:3002/purchase/getItems")
       .then(function (response) {
-        console.log("works");
         setItems(response.data);
       })
       .catch(function (error) {
@@ -28,60 +27,75 @@ export default function Purchase() {
 
   
   const totAmount = (e) => {
-    const val=e.target.id;
-    const quantity=document.getElementById("quantity").value;
-    console.log(val,quantity);
+    let id=e.target.id;
+    let quantity=document.getElementById(id[0]+" quantity");
+    let amountkg=document.getElementById(id[0]+" amount");
+    let total=document.getElementById(id[0]+" total");
+    total.value=quantity.value*amountkg.value;
   };
 
-  const getCategory=async(e)=>{
-    let item=document.getElementById("item").value
+  const getCategory=async (e)=>{
+    let item=e.target.value; 
+    let id=e.target.id; 
+    let category = document.getElementById(id[0]+" category");
+    let vendor = document.getElementById(id[0]+" vendor"); 
     axios
-      .post("http://localhost:3000/purchase/getCategoryVendor", {
+      .post("http://localhost:3002/purchase/getCategoryVendor", {
         item:item,
       })
       .then(function (response) {
-        console.log(response.data);
+        console.log(response.data[0].category);
+        category.value = response.data[0].category;
+        vendor.value = response.data[0].vendorName;
       })
       .catch(function (error) {
         console.log(error);
       });
-
   }
-  const getVendor=()=>{
-
-  }
+  
   const submit = () => {
     let arr = [];
     let date = document.getElementById("date").value;
-
     class Obj {
-      constructor(item, currentQuantity,rmk,rmd,rmkcet) {
-        this.ItemName = item;
-        this.CurrentQuantity = currentQuantity;
-        this.RMK = rmk;
-        this.RMD = rmd;
-        this.RMKCET = rmkcet;
-        this.DATE = date;
+      constructor(item,category,quantity,amount,total) {
+        this.item = item;
+        this.category = category;
+        this.quantity = quantity;
+        this.amount = amount;
+        this.total = total;
+        this.date = date;
       }
     }
-
     for (let i = 1; i < counter; i++) {
-      let item = document.getElementById(i).value;
-      let currentQuantity = document.getElementById(i + " currquantity").value;
-      let rmk = document.getElementById(i + " RMK").value;
-      let rmd = document.getElementById(i + " RMD").value;
-      let rmkcet = document.getElementById(i + " RMKCET").value;
-      let obj = new Obj(item, currentQuantity,rmk,rmd,rmkcet);
+      let item = document.getElementById(i+" item").value;
+      let category = document.getElementById(i+" category").value;
+      let quantity=document.getElementById(i+" quantity").value;
+      let amountkg=document.getElementById(i+" amount").value;
+      let amount=document.getElementById(i+" total").value;
+      let obj = new Obj(item,category,quantity,amountkg,amount );
       arr.push(obj);
+      console.log(arr);
     }
-
-    
     console.log(arr);
+    axios.post('http://localhost:3002/purchase/add', {
+      date:date,
+      arr:arr
+    })
+    .then(async function (response) {
+      await console.log(response.data);
+      alert("Items added successfully")
+      window.location.reload();
 
+    })
+    .catch(async function (error) {
+      await console.log(error);
+    });
   };
 
   const generateRows = () => {
-    let n=document.getElementById("num").value;
+
+  let n=document.getElementById("num").value;
+  let ctr=counter;
   for(let i=1;i<=n;i++){
   let x = document.getElementById("table");
     let row = x.insertRow();
@@ -94,16 +108,14 @@ export default function Purchase() {
     let cell6 = row.insertCell();
     let cell7 = row.insertCell();
 
-    //select
-
     const select = document.createElement("Select");
     select.setAttribute("class", "form-select");
     const option = document.createElement("option");
     const optionText = document.createTextNode("Select");
     option.appendChild(optionText);
     option.setAttribute("value", "select");
-    select.setAttribute("id", counter);
-
+    select.setAttribute("id", ctr+" item");
+    select.addEventListener("change", getCategory, false);
     select.appendChild(option);
 
     for (let i = 1; i < items.length; i++) {
@@ -116,61 +128,54 @@ export default function Purchase() {
 
     cell2.appendChild(select);
 
-    // totquantity
 
     let input1 = document.createElement("input");
-    input1.setAttribute("type", "number");
+    input1.setAttribute("type", "text");
     input1.setAttribute("placeholder", "Category");
     input1.setAttribute("class", "form-control");
-    input1.setAttribute("id", counter + " totquantity");
+    input1.setAttribute("id", ctr + " category");
     input1.disabled = true;
-
     cell3.appendChild(input1);
 
-    //current Quantity
 
     let input2 = document.createElement("input");
-    input2.setAttribute("type", "number");
+    input2.setAttribute("type", "text");
     input2.setAttribute("placeholder", "Vendor");
     input2.setAttribute("class", "form-control");
-    input2.setAttribute("id", counter + " currquantity");
+    input2.setAttribute("id", ctr + " vendor");
     input2.disabled = true;
 
     cell4.appendChild(input2);
 
-    //RMK
 
     let input3 = document.createElement("input");
     input3.setAttribute("type", "number");
     input3.setAttribute("placeholder", "Quantity");
     input3.setAttribute("class", "form-control");
-    input3.setAttribute("id", counter + " RMK");
-  
-
+    input3.setAttribute("id", ctr + " quantity");
+    input3.addEventListener("change",totAmount, false);
     cell5.appendChild(input3);
 
-    //RMD
 
     let input4 = document.createElement("input");
     input4.setAttribute("type", "number");
     input4.setAttribute("placeholder", "Amount");
     input4.setAttribute("class", "form-control");
-    input4.setAttribute("id", counter + " RMD");
-
+    input4.setAttribute("id", ctr + " amount");
+    input4.addEventListener("change",totAmount, false);
     cell6.appendChild(input4);
 
     let input5 = document.createElement("input");
     input5.setAttribute("type", "number");
     input5.setAttribute("placeholder", "Total Amount");
     input5.setAttribute("class", "form-control");
-    input5.setAttribute("id", counter + " RMKCET");
+    input5.setAttribute("id", ctr + " total");
     input5.disabled=true;
-
     cell7.appendChild(input5);
 
-    cell1.innerHTML = counter;
-
-    setCounter(counter + 1);
+    cell1.innerHTML = ctr;
+    ctr+=1;
+    setCounter(ctr);
 }
 }
 
@@ -216,11 +221,12 @@ export default function Purchase() {
               <td>1</td>
               <td>
                 <select
-                  class="form-select"
+                  className="form-select"
                   aria-label="Default select example"
-                  id="item"
+                  onChange={getCategory}
+                  id="1 item"
                 >
-                  <option selected>Select</option>
+                  <option>Select</option>
 
                   {items.map((item, idx) => {
                     return (
@@ -232,59 +238,61 @@ export default function Purchase() {
                 </select>
               </td>
               <td>
-                <div class="input-group mb-3">
+                <div className="input-group mb-3">
                   <input
-                    type="number"
-                    class="form-control"
+                    type="text"
+                    className="form-control"
                     placeholder="Category"
-                    id="category"
+                    id="1 category"
                     disabled
-                    onChange={getCategory}
+                    defaultValue=""
                   />
                 </div>
               </td>
               <td>
-                <div class="input-group mb-3">
+                <div className="input-group mb-3">
                   <input
-                    type="number"
-                    class="form-control"
+                    type="text"
+                    className="form-control"
                     placeholder="Vendor"
-                    id="vendor"
+                    id="1 vendor"
                     disabled
-                    onChange={getVendor}
+                    defaultValue=""
                   />
                 </div>
               </td>
               <td>
-                <div class="input-group mb-3">
+                <div className="input-group mb-3">
                   <input
                     type="number"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Quantity"
-                    id="quantity"
+                    onChange={totAmount}
+                    id="1 quantity"
                   />
                 </div>
               </td>
 
               <td>
-                <div class="input-group mb-3">
+                <div className="input-group mb-3">
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Amount"
-                    id="amount"
+                    onChange={totAmount}
+                    id="1 amount"
                   />
                 </div>
               </td>
               <td>
-                <div class="input-group mb-3">
+                <div className="input-group mb-3">
                   <input
                     type="number"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Total Amount"
-                    id="total"
-                    onChange={totAmount}
+                    id="1 total"
                     disabled
+                    defaultValue=""
                   />
                 </div>
               </td>
