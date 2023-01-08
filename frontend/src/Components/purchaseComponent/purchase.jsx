@@ -198,7 +198,7 @@ export default function Purchase() {
               </div>
               <div className="col-3"></div>
               <div className="col-3 pur-a">
-              <labell for="number" id="row">Enter the number of rows : </labell>
+              <label for="number" id="row">Enter the number of rows : </label>
           <input type="number" id="num"  />
           <button class="btn btn-primary btn-pur" id="add-btn" onClick={generateRows}>Add</button>
               </div>
@@ -311,23 +311,3 @@ export default function Purchase() {
     
   );
 }
-{/* 
-<h1 style={{ marginTop: "2%" }}>Enter Purchase Details</h1>
-      <div className="container" style={{ marginTop: "3%" }}>
-      <div className="col">
-        <div className="left">
-          <label for="date" id="date-label">Date:</label>
-          <input type="date" id="date" name="date" />
-        </div>
-        <div className="right">
-          <labell for="number" id="row">Enter the number of rows : </labell>
-          <input type="number" id="num" />
-          <button class="btn btn-primary" id="add-btn" onClick={generateRows}>Add</button>
-
-        </div>
-      </div>
-      </div>
-       
-        <br />
-        <button class="btn btn-primary" id="submit-btn" onClick={submit}>Submit</button>
-      </div> */}

@@ -98,7 +98,6 @@ export default function Dispatch() {
       }
     }
 
-    let i = 0;
     for (let i = 1; i < counter; i++) {
       let item = document.getElementById(i).value;
       let currentQuantity = document.getElementById(i + " currquantity").value;
@@ -135,6 +134,9 @@ export default function Dispatch() {
   };
 
   const addRow = () => {
+    let n=document.getElementById("num").value;
+  let ctr=counter;
+  for(let i=1;i<=n;i++){
     let x = document.getElementById("table");
     let row = x.insertRow();
 
@@ -155,7 +157,7 @@ export default function Dispatch() {
     const optionText = document.createTextNode("select");
     option.appendChild(optionText);
     option.setAttribute("value", "select");
-    select.setAttribute("id", counter);
+    select.setAttribute("id", ctr);
     select.addEventListener("change", getQuantity, false);
 
     select.appendChild(option);
@@ -176,7 +178,7 @@ export default function Dispatch() {
     input1.setAttribute("type", "number");
     input1.setAttribute("placeholder", "Total Quantity");
     input1.setAttribute("class", "form-control");
-    input1.setAttribute("id", counter + " totquantity");
+    input1.setAttribute("id", ctr + " totquantity");
     input1.defaultValue = 0;
     input1.disabled = true;
 
@@ -188,7 +190,7 @@ export default function Dispatch() {
     input2.setAttribute("type", "number");
     input2.setAttribute("placeholder", "Current Quantity");
     input2.setAttribute("class", "form-control");
-    input2.setAttribute("id", counter + " currquantity");
+    input2.setAttribute("id", ctr + " currquantity");
     input2.defaultValue = 0;
     input2.disabled = true;
 
@@ -200,7 +202,7 @@ export default function Dispatch() {
     input3.setAttribute("type", "number");
     input3.setAttribute("placeholder", "RMK");
     input3.setAttribute("class", "form-control");
-    input3.setAttribute("id", counter + " RMK");
+    input3.setAttribute("id", ctr + " RMK");
     input3.defaultValue = 0;
     input3.addEventListener("change", addValue, false);
 
@@ -212,7 +214,7 @@ export default function Dispatch() {
     input4.setAttribute("type", "number");
     input4.setAttribute("placeholder", "RMD");
     input4.setAttribute("class", "form-control");
-    input4.setAttribute("id", counter + " RMD");
+    input4.setAttribute("id", ctr + " RMD");
     input4.defaultValue = 0;
     input4.addEventListener("change", addValue, false);
 
@@ -222,7 +224,7 @@ export default function Dispatch() {
     input5.setAttribute("type", "number");
     input5.setAttribute("placeholder", "RMKCET");
     input5.setAttribute("class", "form-control");
-    input5.setAttribute("id", counter + " RMKCET");
+    input5.setAttribute("id", ctr + " RMKCET");
     input5.defaultValue = 0;
     input5.addEventListener("change", addValue, false);
 
@@ -232,15 +234,16 @@ export default function Dispatch() {
     input6.setAttribute("type", "number");
     input6.setAttribute("placeholder", "School");
     input6.setAttribute("class", "form-control");
-    input6.setAttribute("id", counter + " SCHOOL");
+    input6.setAttribute("id", ctr + " SCHOOL");
     input6.defaultValue = 0;
     input6.addEventListener("change", addValue, false);
 
     cell8.appendChild(input6);
 
-    cell1.innerHTML = counter;
-
-    setCounter(counter + 1);
+    cell1.innerHTML = ctr;
+    ctr+=1;
+    setCounter(ctr + 1);
+  }
   };
 
   return (
@@ -262,7 +265,11 @@ export default function Dispatch() {
  <input type="date" id="date" name="date" className="inpt-d"/>
           </div>
            <div className="col-3"></div>
-           <div className="col-3 btn-dis"><Button onClick={addRow}>Click to Add Cols</Button></div>
+           <div className="col-3 btn-dis">
+           <label for="number" id="row">Enter the number of rows : </label>
+           <input type="number" id="num"  />
+          <button class="btn btn-primary btn-pur" id="add-btn" onClick={addRow}>Add</button>
+        </div>
         </div>
        <div className="row">
         <div className="col-12 tab-dis">
