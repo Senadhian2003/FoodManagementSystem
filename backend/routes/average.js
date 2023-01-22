@@ -28,7 +28,7 @@ router.get('/report', async(req,res)=>{
             m+=a[j].quantity
             p+=a[j].amount
             u=a[j].amountkg
-            v=a[j].quantity
+            v=a[j].quantity 
             w+=(u*v)
             x+=v
         }
