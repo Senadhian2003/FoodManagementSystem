@@ -8,6 +8,8 @@ const catRtr = require('./routes/catogery');
 const aveRtr= require('./routes/average');
 const mntRtr= require('./routes/monthly');
 const itmRtr= require('./routes/item');
+const purchaseRtr = require('./routes/purchase');
+
 app.use(cors());
 app.use(express.json());
 
@@ -15,7 +17,7 @@ app.use(express.json());
 const db = mysql.createConnection({
   user:'root',
   host:'localhost',
-  password:'Sena@2003',
+  password:'root',
   database:'stock'
 });
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -149,6 +151,7 @@ app.post("/delete", (req, res) => {
 app.use('/average',aveRtr);
 app.use('/monthly',mntRtr);
 app.use('/item',itmRtr);
+app.use('/purchase',purchaseRtr);
 
 app.listen(3002,()=>{
     console.log("You r up!!!");

@@ -4,12 +4,10 @@ import './login.css';
 import Button from "react-bootstrap/Button";
 import clgPhoto from './RMKEC.jpg';
 import logo from './logo.png';
-import { Link } from 'react-router-dom';
-
-
-
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   function validateForm() {
@@ -17,7 +15,24 @@ export default function Login() {
   }
   function handleSubmit(event) { 
     if(name!=="admin" && password!=="selva"){
-      alert("Please! Enter valid credentails");
+      alert("Please! Enter valid credentials");
+      let name=document.getElementById('name').value;
+      name.value="";
+
+    }else if(name!=="admin"){
+      alert("Please! Enter valid username");
+      let name=document.getElementById('name').value;
+      name.value="";
+      event.preventDefault();
+    }
+    else if(password!=="selva"){
+      alert("Please! Enter valid password")
+      let pwd=document.getElementById('pwd').value;
+      pwd.value="";
+      event.preventDefault();
+    }
+    else {
+      navigate('/stock');
     }
     event.preventDefault();
   }
@@ -39,6 +54,7 @@ export default function Login() {
             <Form.Control
               autoFocus
               type="text"
+              id="name"
               value={name}
               name="name"
               onChange={(e) => setName(e.target.value)}
@@ -48,14 +64,15 @@ export default function Login() {
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
+              id="pwd"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Group>
         <div className='button'>
-        <Link to='/stock' className="linkt">  <Button block size="lg" type="submit" disabled={!validateForm()}>
+         <Button block size="lg" type="submit" disabled={!validateForm()}>
             Login
-          </Button></Link>
+          </Button>
       </div>  
         </Form>
       </div>
