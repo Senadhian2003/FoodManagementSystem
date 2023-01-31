@@ -4,7 +4,7 @@ var router = express.Router();
 const conn = mysql.createConnection({
   host: 'localhost', 
   user: 'root',      
-  password: 'root',      
+  password: 'Sena@2003',      
   database: 'stock' 
 }); 
 
@@ -33,13 +33,26 @@ router.post('/add', async (req, res) => {
   for(let i=0;i<length;i++){
   var item=arr[i].item;
   var category=arr[i].category;
-  var quantity=arr[i].quantity;
+  var quantity=parseInt(arr[i].quantity);
   var amountkg=arr[i].amount;
   var amount=arr[i].total;
+
+  let result = await conn.promise().query(`select quantity from current where item = '${item}'`);
+  console.log(result[0][0].quantity)
+    let currentQuantity = parseInt(result[0][0].quantity);
+  let finalQuantity = currentQuantity + quantity
+  
   var sql = `INSERT INTO purchase (item,category,quantity,amountkg,amount,date) VALUES (?,?,?,?,?,?)`;
   await conn.promise().query(sql,[item,category,quantity,amountkg,amount,date], function(err, result) {
     if (err) throw err;
   });
+  conn.promise().query(`update current set quantity=${finalQuantity} where item='${item}'`);
+  
+  var sql = `INSERT INTO closingstock (item,quantity,date) VALUES (?,?,?)`; 
+  await conn.promise().query(sql,[item,finalQuantity,date], function(err, result) {
+    if (err) throw err; 
+  });
+
 }
   res.send("Items inserted");
 

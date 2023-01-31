@@ -7,6 +7,12 @@ const router = express.Router();
 router.get('/report', async(req,res)=>{
      
     lp=[[],[]]
+
+    let result= await db.promise().query(`select purchase.item as ITEMNAME,(select sum(quantity) from purchase where date>='2023-01-01' and date <='2023-01-30' and item=ItemName) as purchaseQuantity,(SELECT quantity FROM closingstock WHERE date<='2023-01-01' and item=ItemName ORDER BY date DESC limit 1) as closingStock,(select amountkg from purchase where date<='2023-01-30' and item = itemName order by date DESC limit 1) as amountKg, sum(dispatch1.RMK) as RMK, sum(dispatch1.RMD) as RMD, sum(dispatch1.RMKCET) as RMKCET,
+    sum(dispatch1.RMKSCHOOL) as SCHOOL from purchase inner join dispatch1 on purchase.item = dispatch1.item where purchase.date>='2023-01-01' and purchase.date<='2023-01-30' group by dispatch1.item,purchase.item
+    `);
+
+    console.log(result[0])
     
   let items = await db.promise().query(`select distinct(item),category from dispatch where date>='${req.query.fdate}' and date<='${req.query.tdate}' order by category`);
   items=items[0]
@@ -205,7 +211,7 @@ router.get('/report', async(req,res)=>{
    
     console.log("kikijijij")
     
-    res.status(200).send(lp);
+    res.status(200).send(result[0]);
 
 });
 
