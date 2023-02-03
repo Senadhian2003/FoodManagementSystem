@@ -29,12 +29,12 @@ export default function ItemRp() {
       <div className='row'>
         <div className='col-12'>
         <Link to="/rep"> <Button variant="success" className="btn-b">Back</Button></Link>
-          <h1>ITEM WISE</h1>
+          <h1>ITEM WISE REPORT</h1>
         </div>
       </div>
       <div className='row itm'>
         <div className='col-12 itm-c'>
-        <input placeholder='Enter category to search.....' type="text" className='inpt-catg' onChange={(e)=>{setquery(e.target.value)}} value={query}/>
+        <input placeholder='Enter items to search.....' type="text" className='inpt-catg' onChange={(e)=>{setquery(e.target.value)}} value={query}/>
         <Button variant="success" className='btn-catg'>SEARCH</Button>
         </div>
       </div>

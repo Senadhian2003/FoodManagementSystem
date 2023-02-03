@@ -22,8 +22,7 @@ function Slidebar() {
  <div className='row'><MenuItem className='sub-n'><LocalShippingIcon className="linkt"/><Link to='/dis' className="linkt"> Dispatch </Link> </MenuItem></div>
  <div className='row'><MenuItem className='sub-n'><StoreIcon className="linkt"/> <Link to='/stock' className="linkt">Available Stock</Link> </MenuItem></div>
  <div className='row'> <MenuItem className='sub-n'><AssessmentIcon className="linkt"/><Link to='/rep' className="linkt"> Reports</Link> </MenuItem></div>
- <div className='row'><MenuItem className='sub-n'><CategoryIcon className="linkt"/><Link to='/cat' className="linkt">  Categories </Link></MenuItem></div>
- <div className='row'><MenuItem className='sub-n'><FestivalIcon className="linkt"/><Link to='/ven' className="linkt"> Vendors</Link> </MenuItem></div>
+
  <div className='row'><MenuItem className='sub-n'><LogoutIcon className="linkt"/><Link to='/' className="linkt">  Logout</Link> </MenuItem></div>
     </div>
   </Menu>

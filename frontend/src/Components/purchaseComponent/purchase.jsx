@@ -211,9 +211,9 @@ export default function Purchase() {
           <input type="date" id="date" name="date" className="inpt-d"/>
               </div>
               <div className="col-3"></div>
-              <div className="col-3 pur-a">
-              <label for="number" id="row">Enter the number of rows : </label>
-          <input type="number" id="num"  />
+              <div className="col-3">
+              <label for="number" id="row">Enter number of rows : </label>
+          <input type="number" id="num"  className="inpt-r"/>
           <button class="btn btn-primary btn-pur" id="add-btn" onClick={generateRows}>Add</button>
           {/* <button onClick={()=>{setmod(true)}}>Add Item</button> */}
               </div>

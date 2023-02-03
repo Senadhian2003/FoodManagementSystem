@@ -28,13 +28,13 @@ function Stock() {
                 </ProSidebarProvider>
             </div>
             <div className='col-9'>
-                <h1>Available STOCK</h1>
+                <h1 className='stock'>Available STOCK</h1>
 <br></br>
 <div className='ser-ava'>
 <SearchIcon/>
               <input placeholder='Enter item name to check.....' type="text" className='inpt-catg' autoFocus onChange={(e)=>{setquery(e.target.value)}} value={query}/>
               
-              <Button variant="success" className='btn-catg'>ADD</Button>
+              <Button variant="success" className='btn-catg'>Search</Button>
               </div>
                 <Table>
                     <thead>

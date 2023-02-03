@@ -30,12 +30,12 @@ export default function MonthlyRp() {
         <div className='row'>
           <div className='col-12'>
           <Link to="/rep"> <Button variant="success" className="btn-b">Back</Button></Link>
-            <h1>ITEM WISE</h1>
+            <h1>Monthly Report</h1>
           </div>
         </div>
         <div className='row itm'>
           <div className='col-12 itm-c'>
-          <input placeholder='Enter category to search.....' type="text" className='inpt-catg' onChange={(e)=>{setquery(e.target.value)}} value={query}/>
+          <input placeholder='Enter item to search.....' type="text" className='inpt-catg' onChange={(e)=>{setquery(e.target.value)}} value={query}/>
           {/* onChange={(e)=>{setquery(e.target.value)}} */}
           <Button variant="success" className='btn-catg'>SEARCH</Button>
           </div>
@@ -43,7 +43,7 @@ export default function MonthlyRp() {
         <div className='row'>
           <div className='col-12 tab-it'>
             
-          <table class="table table-bordered table-dark">
+          <table class="table table-bordered">
   <thead>
     <tr>
       <th scope="col" rowspan="2">Item Name</th>

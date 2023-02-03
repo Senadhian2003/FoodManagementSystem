@@ -34,7 +34,7 @@ export default function Average() {
       </div>
       <div className='row itm'>
         <div className='col-12 itm-c'>
-        <input placeholder='Enter category to search.....' type="text" className='inpt-catg' onChange={(e)=>{setquery(e.target.value)}} value={query}/>
+        <input placeholder='Enter item to search.....' type="text" className='inpt-catg' onChange={(e)=>{setquery(e.target.value)}} value={query}/>
         <Button variant="success" className='btn-catg'>SEARCH</Button>
         </div>
       </div>

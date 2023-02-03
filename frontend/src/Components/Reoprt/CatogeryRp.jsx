@@ -31,7 +31,7 @@ export default function CatogeryRp() {
       <div className='row'>
         <div className='col-12'>
         <Link to="/rep"> <Button variant="success" className="btn-b">Back</Button></Link>
-          <h1>CATEGORY</h1>
+          <h1>CATEGORY REPORT</h1>
         </div>
       </div>
       <div className='row'>
