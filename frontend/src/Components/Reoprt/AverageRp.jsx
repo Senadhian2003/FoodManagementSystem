@@ -51,7 +51,7 @@ export default function Average() {
               </tr>
             </thead>
             <tbody>
-              {data.filter((e)=>e.item.includes(query)).map((e)=>{return(<tr><td>{e.item}</td><td>{e.quantity}</td><td>{e.amount}</td><td>{e.average}</td></tr>)})}
+              {data.filter((e)=>e.item.includes(query.toLocaleUpperCase())).map((e)=>{return(<tr><td>{e.item}</td><td>{e.quantity.toFixed(2)}</td><td>{e.amount.toFixed(2)}</td><td>{(e.amount/e.quantity).toFixed(2)}</td></tr>)})}
             </tbody>
           </Table>
         </div>

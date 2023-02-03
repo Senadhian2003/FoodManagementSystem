@@ -8,7 +8,7 @@ router.get('/report', async(req,res)=>{
     
     lp=[]
     // let items = await db.promise().query(`select * from purchase where date>='${req.query.fdate}' and date<='${req.query.tdate}'`);
-      let items = await db.promise().query(`select item ,sum(quantity),sum(amount) from purchase where date>='2022-11-03' and date <='2023-01-03' group by item;`);
+      let items = await db.promise().query(`select item ,sum(quantity) as quantity ,sum(amount) as amount from purchase where date>='${req.query.fdate}' and date <='${req.query.tdate}' group by item;`);
 
     items=items[0]
     console.log(items)

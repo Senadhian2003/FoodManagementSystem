@@ -57,7 +57,7 @@ export default function CatogeryRp() {
               </tr>
             </thead>
             <tbody>
-              {data[0].filter(e=>e.cat.includes(query)).map((e)=>{return(
+              {data[0].filter(e=>e.cat.includes(query.toLocaleUpperCase())).map((e)=>{return(
                 <tr>
                   <td>{e.cat}</td>
                   <td>{e.purchasedAmount}</td>
