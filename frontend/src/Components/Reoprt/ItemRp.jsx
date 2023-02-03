@@ -3,12 +3,17 @@ import axios from "axios";
 import { Table } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
-import { useState,useEffect } from 'react';
+import ReactToPrint from 'react-to-print';
+import { useState,useEffect ,useRef} from 'react';
+
 export default function ItemRp() {
     let fdate=localStorage.getItem('fdate')
     let tdate=localStorage.getItem('tdate')
     const [data,sdata]=useState('')
     const[query,setquery] = useState("")
+    const componentRef = useRef();
+
+
     useEffect(() => {
         axios.get("http://localhost:3002/item/hi",{
             params: {
@@ -26,6 +31,11 @@ export default function ItemRp() {
     console.log(fdate,tdate)
     if(data)return (
     <div className='container-fluid'>
+      <ReactToPrint
+        trigger={() => <button className='btn btn-success btn-p'>Print this out!</button>}
+        documentTitle="Average Report"
+        content={() => componentRef.current}
+      />
       <div className='row'>
         <div className='col-12'>
         <Link to="/rep"> <Button variant="success" className="btn-b">Back</Button></Link>
@@ -39,7 +49,7 @@ export default function ItemRp() {
         </div>
       </div>
       <div className='row'>
-        <div className='col-12 tab-it'>
+        <div className='col-12 tab-it' ref={componentRef}>
           
           <Table>
             <thead>

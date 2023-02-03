@@ -1,15 +1,18 @@
 import React from 'react'
 import axios from "axios";
-import { useState,useEffect } from 'react';
+import { useState,useEffect,useRef } from 'react';
 import { Table } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
+import ReactToPrint from 'react-to-print';
+
 
 export default function Average() {
     let fdate=localStorage.getItem('fdate')
     let tdate=localStorage.getItem('tdate')
     const [data,sdata]=useState('')
     const[query,setquery] = useState("")
+    const componentRef = useRef();
 
     useEffect(() => {
         axios.get("http://localhost:3002/average/report",{
@@ -26,6 +29,11 @@ export default function Average() {
     console.log(data)
   if(data)return (
     <div className='container-fluid'>
+       <ReactToPrint
+        trigger={() => <button className='btn btn-success btn-p'>Print this out!</button>}
+        documentTitle="Average Report"
+        content={() => componentRef.current}
+      />
           <div className='row'>
         <div className='col-12'>
        <Link to="/rep"> <Button variant="success" className="btn-b">Back</Button></Link>
@@ -39,9 +47,8 @@ export default function Average() {
         </div>
       </div>
       <div className='row'>
-        <div className='col-12 tab-it'>
-          
-          <Table>
+        <div className='col-12 tab-it' ref={componentRef}>
+          <Table >
             <thead>
               <tr>
                 <th>CATEGORY</th>

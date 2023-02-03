@@ -1,15 +1,20 @@
 import React from 'react'
 import axios from "axios";
-import { useState,useEffect } from 'react';
+import { useState,useEffect,useRef } from 'react';
 import { Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
+import ReactToPrint from 'react-to-print';
+import "./report.css"
 
 export default function MonthlyRp() {
     let fdate=localStorage.getItem('fdate')
     let tdate=localStorage.getItem('tdate')
     const [data,sdata]=useState('')
     const[query,setquery] = useState("")
+    const componentRef = useRef();
+
+
     useEffect(() => {
         axios.get("http://localhost:3002/monthly/report",{
             params: {
@@ -27,6 +32,11 @@ export default function MonthlyRp() {
     console.log(data)
     if(data)return (
       <div className='container-fluid'>
+        <ReactToPrint
+        trigger={() => <button className='btn btn-success btn-p'>Print this out!</button>}
+        documentTitle="Average Report"
+        content={() => componentRef.current}
+      />
         <div className='row'>
           <div className='col-12'>
           <Link to="/rep"> <Button variant="success" className="btn-b">Back</Button></Link>
@@ -41,7 +51,7 @@ export default function MonthlyRp() {
           </div>
         </div>
         <div className='row'>
-          <div className='col-12 tab-it'>
+          <div className='col-12 tab-it' ref={componentRef}>
             
           <table class="table table-bordered">
   <thead>
