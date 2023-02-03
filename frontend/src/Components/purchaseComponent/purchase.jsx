@@ -6,11 +6,14 @@ import './purchase.css';
 import { ProSidebarProvider } from 'react-pro-sidebar';
 import Slidebar from '../../Slidebar';
 import "../tables.css";
+import {Modal} from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
 
 export default function Purchase() {
   
   const [items, setItems] = useState([]);
   const [counter, setCounter] = useState(2);
+  const[mod,setmod]=useState(false);
 
   useEffect(() => {
     axios
@@ -37,6 +40,7 @@ export default function Purchase() {
   const getCategory=async (e)=>{
     let item=e.target.value; 
     let id=e.target.id; 
+    console.log(id)
     let category = document.getElementById(id[0]+" category");
     let vendor = document.getElementById(id[0]+" vendor"); 
     axios
@@ -44,6 +48,7 @@ export default function Purchase() {
         item:item,
       })
       .then(function (response) {
+        console.log(response)
         console.log(response.data[0].category);
         category.value = response.data[0].category;
         vendor.value = response.data[0].vendorName;
@@ -52,18 +57,19 @@ export default function Purchase() {
         console.log(error);
       });
   }
-  
+
   const submit = () => {
     let arr = [];
     let date = document.getElementById("date").value;
     class Obj {
-      constructor(item,category,quantity,amount,total) {
+      constructor(item,category,quantity,amount,total,vendor) {
         this.item = item;
         this.category = category;
         this.quantity = quantity;
         this.amount = amount;
         this.total = total;
         this.date = date;
+        this.vendor = vendor;
       }
     }
     for (let i = 1; i < counter; i++) {
@@ -72,9 +78,10 @@ export default function Purchase() {
       let quantity=document.getElementById(i+" quantity").value;
       let amountkg=document.getElementById(i+" amount").value;
       let amount=document.getElementById(i+" total").value;
-      let obj = new Obj(item,category,quantity,amountkg,amount );
+      let vendor = document.getElementById(i+" vendor").value;
+      let obj = new Obj(item,category,quantity,amountkg,amount,vendor);
       arr.push(obj);
-      console.log(arr);
+      console.log(arr,"SEE");
     }
     console.log(arr);
     axios.post('http://localhost:3002/purchase/add', {
@@ -108,25 +115,32 @@ export default function Purchase() {
     let cell6 = row.insertCell();
     let cell7 = row.insertCell();
 
-    const select = document.createElement("Select");
-    select.setAttribute("class", "form-select");
+    const purchaseInput = document.createElement("input");
+    purchaseInput.setAttribute("type","text");
+    purchaseInput.setAttribute("list","item");
+    purchaseInput.setAttribute("id", ctr+" item");
+    purchaseInput.addEventListener("blur", getCategory);
+    const datalist = document.createElement("datalist");
+    datalist.setAttribute("class", "form-select");
+    
+    datalist.setAttribute("id", "item");
     const option = document.createElement("option");
-    const optionText = document.createTextNode("Select");
+    const optionText = document.createTextNode("");
     option.appendChild(optionText);
     option.setAttribute("value", "select");
-    select.setAttribute("id", ctr+" item");
-    select.addEventListener("change", getCategory, false);
-    select.appendChild(option);
+    
+    
+    datalist.appendChild(option);
 
     for (let i = 1; i < items.length; i++) {
       const option = document.createElement("option");
       const optionText = document.createTextNode(items[i].item);
       option.appendChild(optionText);
       option.setAttribute("value", items[i].item);
-      select.appendChild(option);
+      datalist.appendChild(option);
     }
-
-    cell2.appendChild(select);
+ 
+    cell2.appendChild(purchaseInput);
 
 
     let input1 = document.createElement("input");
@@ -201,9 +215,42 @@ export default function Purchase() {
               <label for="number" id="row">Enter the number of rows : </label>
           <input type="number" id="num"  />
           <button class="btn btn-primary btn-pur" id="add-btn" onClick={generateRows}>Add</button>
+          {/* <button onClick={()=>{setmod(true)}}>Add Item</button> */}
               </div>
             </div>
             <div className="row tab-dis">
+            <Modal show={mod} className="modal-lg">
+        {/* <Modal.Header>Enter items to be added</Modal.Header>
+        <input type="text"/>
+        <Modal.Header>Enter category to be added</Modal.Header>
+        <input type="text"/>
+        <Modal.Header>Enter vendor to be added</Modal.Header>
+        <input type="text"/> */}
+        <Table>
+          <thead>
+            <tr>
+              <th>Items</th>
+              <th>Category</th>
+              <th>Vendors</th>
+              <th>Quantity</th>
+              <th>Amount</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input/></td>
+              <td><input/></td>
+              <td><input/></td>
+            </tr>
+          </tbody>
+        </Table>
+        <Modal.Body>
+        {/* {its.map((e)=>{return(<div>{e.item}</div>)})} */}
+        </Modal.Body>
+        <Button >Submit</Button>
+        <Button onClick={()=>{setmod(false)}}>CLOSE</Button>
+      </Modal>
+      
             <Table striped bordered hover id="table">
           <thead>
             <tr>
@@ -220,22 +267,23 @@ export default function Purchase() {
             <tr>
               <td>1</td>
               <td>
-                <select
+                <input type="text" list="item" id="1 item" onBlur={getCategory}/>
+                <datalist
                   className="form-select"
                   aria-label="Default select example"
-                  onChange={getCategory}
-                  id="1 item"
-                >
-                  <option>Select</option>
-
+                  
+                  id="item"
+                  hidden
+              
+                >                  
                   {items.map((item, idx) => {
                     return (
-                      <option key={idx} value={item.item}>
+                      <option key={idx} value={item.item} hidden>
                         {item.item}
                       </option>
                     );
                   })}
-                </select>
+                </datalist>
               </td>
               <td>
                 <div className="input-group mb-3">
@@ -244,7 +292,7 @@ export default function Purchase() {
                     className="form-control"
                     placeholder="Category"
                     id="1 category"
-                    disabled
+                    
                     defaultValue=""
                   />
                 </div>
@@ -256,7 +304,7 @@ export default function Purchase() {
                     className="form-control"
                     placeholder="Vendor"
                     id="1 vendor"
-                    disabled
+                 
                     defaultValue=""
                   />
                 </div>
@@ -307,7 +355,7 @@ export default function Purchase() {
       </div>
 
     </div>
-      
-    
-  );
+  
+
+);
 }

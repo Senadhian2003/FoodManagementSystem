@@ -24,7 +24,7 @@ router.get('/result', async(req,res)=>{
             val+=a[j].quantity;
             purchasedQuantity+=a[j].quantity;
             purchasedAmount+=a[j].amount
-
+ 
         }
         
         fin['purchasedAmount']=purchasedAmount.toFixed(2)
