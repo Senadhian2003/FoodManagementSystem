@@ -5,12 +5,16 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
 import { Table } from 'react-bootstrap';
 import './report.css'
-import { useState,useEffect } from 'react';
+import { useState,useEffect,useRef } from 'react';
+import ReactToPrint from 'react-to-print';
+
 export default function CatogeryRp() {
     let fdate=localStorage.getItem('fdate')
     let tdate=localStorage.getItem('tdate')
     const [data,sdata]=useState()
     const[query,setquery] = useState("")
+    const componentRef = useRef();
+
     useEffect(() => {
         axios.get("http://localhost:3002/disp/result",{
             params: {
@@ -28,10 +32,15 @@ export default function CatogeryRp() {
     console.log(fdate,tdate)
     if(data)return (
     <div className='container-fluid'>
+      <ReactToPrint
+        trigger={() => <button className='btn btn-success btn-p'>Print this out!</button>}
+        documentTitle="Average Report"
+        content={() => componentRef.current}
+      />
       <div className='row'>
         <div className='col-12'>
         <Link to="/rep"> <Button variant="success" className="btn-b">Back</Button></Link>
-          <h1>CATEGORY</h1>
+          <h1>CATEGORY REPORT</h1>
         </div>
       </div>
       <div className='row'>
@@ -47,7 +56,7 @@ export default function CatogeryRp() {
         <div className='col-4 dis'><h4>Total Dispatch : {data[1][1]} </h4> </div>
       </div>
       <div className='row'>
-        <div className='col-12 tab-col'>
+        <div className='col-12 tab-col' ref={componentRef}>
           <Table>
             <thead>
               <tr>
@@ -57,7 +66,7 @@ export default function CatogeryRp() {
               </tr>
             </thead>
             <tbody>
-              {data[0].filter(e=>e.cat.includes(query)).map((e)=>{return(
+              {data[0].filter(e=>e.cat.includes(query.toLocaleUpperCase())).map((e)=>{return(
                 <tr>
                   <td>{e.cat}</td>
                   <td>{e.purchasedAmount}</td>

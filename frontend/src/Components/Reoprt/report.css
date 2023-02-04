@@ -11,6 +11,11 @@
 .ser-col{
     margin-top: 70px;
 }
+.btn-p{
+    margin-left: 1010px !important;
+    margin-top: 10px;
+    margin-bottom: -80px;
+}
 .inpt-catg{
     margin-left: 10px !important;
 }
@@ -25,6 +30,7 @@
 }
 .itm-c{
     margin-left: 30%;
+    width: 60%;
 }
 .tab-col{
     margin-top: 50px;

@@ -260,16 +260,17 @@ export default function Dispatch() {
         
           <h1 className="h1-dis">DISPATCH SECTION</h1>
         <div className="row r-dis">
-          <div className="col-3">
-          <label for="date"> </label>
+          <div className="col-3 dat-d">
+          <label for="date"> Date:</label>
  <input type="date" id="date" name="date" className="inpt-d"/>
           </div>
            <div className="col-3"></div>
-           <div className="col-3 btn-dis">
-           <label for="number" id="row">Enter the number of rows : </label>
-           <input type="number" id="num"  />
+           <div className="col-3">
+            <label for="number" id="row" className="lab-d">Enter number of rows : </label>
+          <input type="number" id="num"  className="inpt-r"/>
           <button class="btn btn-primary btn-pur" id="add-btn" onClick={addRow}>Add</button>
-        </div>
+          {/* <button onClick={()=>{setmod(true)}}>Add Item</button> */}
+              </div>
         </div>
        <div className="row">
         <div className="col-12 tab-dis">
@@ -398,7 +399,7 @@ export default function Dispatch() {
 
         </div>
        </div>
-       <Button onClick={submit} className="btn-dis2">Submit</Button>
+       <button onClick={submit} className="btn-dis2 btn btn-success">Submit</button>
       </div>
       </div>
     </div>

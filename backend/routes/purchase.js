@@ -4,8 +4,8 @@ var router = express.Router();
 const conn = mysql.createConnection({
   host: 'localhost', 
   user: 'root',      
-  password: 'root',      
-  database: 'stock' 
+  password: 'root123',      
+  database: 'mess' 
 }); 
 
 conn.connect(function(err) {
@@ -36,8 +36,18 @@ router.post('/add', async (req, res) => {
   var quantity=arr[i].quantity;
   var amountkg=arr[i].amount;
   var amount=arr[i].total;
+  var vendor=arr[i].vendor;
   var sql = `INSERT INTO purchase (item,category,quantity,amountkg,amount,date) VALUES (?,?,?,?,?,?)`;
+  var sql1 = `Insert ignore into category (item,category) values (?,?)`
+  var sql2 = `Insert ignore into vendor (vendorName,category) values (?,?)`
+
   await conn.promise().query(sql,[item,category,quantity,amountkg,amount,date], function(err, result) {
+    if (err) throw err;
+  });
+  await conn.promise().query(sql1,[item,category], function(err, re) {
+    if (err) throw err;
+  });
+  await conn.promise().query(sql2,[category,vendor], function(err, res) {
     if (err) throw err;
   });
 }
@@ -51,9 +61,7 @@ let sql=`select vendorName,category from vendor where category = (select distinc
 conn.query(sql,item,function(err,result){
   if(err) throw err;
   res.send(result);
-})
+})   
 
 })
-module.exports = router;
-
-
+module.exports=router;

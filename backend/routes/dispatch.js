@@ -26,9 +26,9 @@ router.post('/getQuantity',async(req,res)=>{
 router.post('/updateDispatch',async(req,res)=>{
 
     const arr = req.body.ItemArray;
-    console.log(arr)
+    // console.log(arr)
     let length = arr.length;
-    console.log(length)
+    // console.log(length)
     let i=0;
     for(let i=0; i<length; i++){
     let itemName = arr[i].ItemName;
@@ -39,21 +39,25 @@ router.post('/updateDispatch',async(req,res)=>{
     let school = arr[i].SCHOOL;
     let date = arr[i].DATE;
 
-    console.log(itemName,currentQuantity,rmk,rmd,rmkcet,date)
+    // console.log(itemName,currentQuantity,rmk,rmd,rmkcet,date)
  
     let result = await db.promise().query(`select distinct(category) from category where item = '${itemName}'`);
     let category = result[0][0].category;
     console.log(category)
-
-    db.promise().query(`INSERT INTO dispatch(item,quantity,place,date,category) VALUES('${itemName}','${rmk}','RMK','${date}','${category}')`);
-    db.promise().query(`INSERT INTO dispatch(item,quantity,place,date,category) VALUES('${itemName}','${rmd}','RMD','${date}','${category}')`);
-    db.promise().query(`INSERT INTO dispatch(item,quantity,place,date,category) VALUES('${itemName}','${rmkcet}','RMKCET','${date}','${category}')`);
-    db.promise().query(`INSERT INTO dispatch(item,quantity,place,date,category) VALUES('${itemName}','${school}','SCHOOL','${date}','${category}')`);
+    db.promise().query(`INSERT INTO dispatch1(item,RMK,RMD,RMKCET,RMKSCHOOL,date,category,amountKg) VALUES('${itemName}','${rmk}','${rmd}','${rmkcet}','${school}','${date}','${category}',(Select amountKg from purchase where item='BANANA LEAF' and date<'2023-01-30' order by date DESC limit 1))`);
+    // db.promise().query(`INSERT INTO dispatch(item,quantity,place,date,category) VALUES('${itemName}','${rmk}','RMK','${date}','${category}')`);
+    // db.promise().query(`INSERT INTO dispatch(item,quantity,place,date,category) VALUES('${itemName}','${rmd}','RMD','${date}','${category}')`);
+    // db.promise().query(`INSERT INTO dispatch(item,quantity,place,date,category) VALUES('${itemName}','${rmkcet}','RMKCET','${date}','${category}')`);
+    // db.promise().query(`INSERT INTO dispatch(item,quantity,place,date,category) VALUES('${itemName}','${school}','SCHOOL','${date}','${category}')`);
     db.promise().query(`update current set quantity=${currentQuantity} where item='${itemName}'`);
+    var sql = `INSERT INTO closingstock (item,quantity,date) VALUES (?,?,?)`; 
+    await db.promise().query(sql,[item,currentQuantity,date], function(err, result) {
+      if (err) throw err; 
+    });
     }
     res.send("GOOD");
     
-
+ 
 })
 
 
