@@ -7,7 +7,9 @@ const router = express.Router();
 router.get('/monthlyReport', async(req,res)=>{
      
     
-  
+  var f= req.query.fdate
+  var t=req.query.tdate
+  console.log(f)
     let result= await db.promise().query(`SELECT c.item, 
     COALESCE(SUM(CASE WHEN MONTH(p_sub.date) = 1 THEN p_sub.quantity ELSE 0 END), 0) as "Jan",
     COALESCE(SUM(CASE WHEN MONTH(p_sub.date) = 2 THEN p_sub.quantity ELSE 0 END), 0) as "Feb",
@@ -25,12 +27,12 @@ FROM current c
 LEFT JOIN (
 SELECT item, date, SUM(quantity) as quantity
 FROM purchase
-WHERE date BETWEEN '2022-01-01' AND '2022-02-27'
+WHERE date BETWEEN '${f}' AND '${t}'
 GROUP BY item, date
 ) p_sub ON c.item = p_sub.item
 GROUP BY c.item`);
 
-    console.log(result[0])
+    // console.log(result[0])
     res.status(200).send(result[0]);
 
 });
