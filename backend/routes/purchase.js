@@ -4,8 +4,8 @@ var router = express.Router();
 const conn = mysql.createConnection({
   host: 'localhost', 
   user: 'root',      
-  password: 'password',      
-  database: 'mess' 
+  password: 'Sena@2003',      
+  database: 'stock' 
 }); 
 
 conn.connect(function(err) {
@@ -40,7 +40,7 @@ router.post('/add', async (req, res) => {
   var sql = `INSERT INTO purchase (item,category,quantity,amountkg,amount,date) VALUES (?,?,?,?,?,?)`;
   var sql1 = `Insert ignore into category (item,category) values (?,?)`
   var sql2 = `Insert ignore into vendor (vendorName,category) values (?,?)`
-
+    
   await conn.promise().query(sql,[item,category,quantity,amountkg,amount,date], function(err, result) {
     if (err) throw err;
   });
