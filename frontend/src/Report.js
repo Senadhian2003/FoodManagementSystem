@@ -52,53 +52,53 @@ function Report() {
           <div className='row'>
             <div className='col-6 card card-r'>
             <div class="card-body">
-              <h2 className='card-title'>Monthly</h2>
+              <h2 className='card-title'>MONTHLY</h2>
               <div className='row'>
               <div className='col-6'><h5 class="card-subtitle ">From</h5>
-            <input type="date" value={fdate} onChange={(e)=>sfdate(e.target.value)}/></div>
+            <input type="date" value={fdate} onChange={(e)=>sfdate(e.target.value)} className="inp-mon"/></div>
               <div className='col-6'> <h5 class="card-subtitle ">To</h5>
-        <input type="date" value={tdate} onChange={(e)=>stdate(e.target.value)}/></div>
+        <input type="date" value={tdate} onChange={(e)=>stdate(e.target.value)} className="inp-mon"/></div>
         </div>
            
   </div>
-  <button onClick={monthly}>Monthly</button>  
+  <button className="btn btn-d btn-success" onClick={monthly}>Monthly</button>  
             </div>
             <div className='col-6 card-r card'><div class="card-body">
-              <h2 className='card-title'>Category wise</h2>
+              <h2 className='card-title'>CATEGORY WISE</h2>
               <div className='row'>
               <div className='col-6'><h5 class="card-subtitle ">From</h5>
-            <input type="date" value={fdate} onChange={(e)=>sfdate(e.target.value)}/></div>
+            <input type="date" value={fdate} onChange={(e)=>sfdate(e.target.value)} className="inp-mon"/></div>
               <div className='col-6'> <h5 class="card-subtitle ">To</h5>
-        <input type="date" value={tdate} onChange={(e)=>stdate(e.target.value)}/></div>
+        <input type="date" value={tdate} onChange={(e)=>stdate(e.target.value)} className="inp-mon"/></div>
         </div>
            
   </div>
-  <button onClick={category}>Category</button>
+  <button onClick={category} className="btn btn-d btn-success">Category</button>
   </div>
   
             </div>
           <div className='row'><div className='col-6 card-r card'><div class="card-body">
-              <h2 className='card-title'>Item Wise</h2>
+              <h2 className='card-title'>ITEM WISE</h2>
               <div className='row'>
               <div className='col-6'><h5 class="card-subtitle ">From</h5>
-            <input type="date" value={fdate} onChange={(e)=>sfdate(e.target.value)}/></div>
+            <input type="date" value={fdate} onChange={(e)=>sfdate(e.target.value)} className="inp-mon"/></div>
               <div className='col-6'> <h5 class="card-subtitle ">To</h5>
-        <input type="date" value={tdate} onChange={(e)=>stdate(e.target.value)}/></div>
+        <input type="date" value={tdate} onChange={(e)=>stdate(e.target.value)} className="inp-mon"/></div>
         </div>
            
   </div>
-  <button onClick={item}>Item</button>
+  <button onClick={item} className="btn btn-d btn-success">Item</button>
   </div><div className='col-6 card card-r'><div class="card-body">
-              <h2 className='card-title'>Average</h2>
+              <h2 className='card-title'>AVERAGE</h2>
               <div className='row'>
               <div className='col-6'><h5 class="card-subtitle ">From</h5>
-            <input type="date" value={fdate} onChange={(e)=>sfdate(e.target.value)}/></div>
+            <input type="date" value={fdate} onChange={(e)=>sfdate(e.target.value)} className="inp-mon"/></div>
               <div className='col-6'> <h5 class="card-subtitle ">To</h5>
-        <input type="date" value={tdate} onChange={(e)=>stdate(e.target.value)}/></div>
+        <input type="date" value={tdate} onChange={(e)=>stdate(e.target.value)} className="inp-mon"/></div>
         </div>
            
   </div>
-  <button onClick={average}>Average</button>
+  <button onClick={average} className="btn btn-d btn-success">Average</button>
   </div></div>
         {/* <form onSubmit={pvt}>
         <input type="date" value={fdate} onChange={(e)=>sfdate(e.target.value)}/>

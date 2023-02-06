@@ -3,12 +3,17 @@ import axios from "axios";
 import { Table } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
-import { useState,useEffect } from 'react';
+import ReactToPrint from 'react-to-print';
+import { useState,useEffect ,useRef} from 'react';
+
 export default function ItemRp() {
     let fdate=localStorage.getItem('fdate')
     let tdate=localStorage.getItem('tdate')
     const [data,sdata]=useState('')
     const[query,setquery] = useState("")
+    const componentRef = useRef();
+
+
     useEffect(() => {
         axios.get("http://localhost:3002/item/hi",{
             params: {
@@ -26,20 +31,25 @@ export default function ItemRp() {
     console.log(fdate,tdate)
     if(data)return (
     <div className='container-fluid'>
+      <ReactToPrint
+        trigger={() => <button className='btn btn-success btn-p'>Print this out!</button>}
+        documentTitle="Average Report"
+        content={() => componentRef.current}
+      />
       <div className='row'>
         <div className='col-12'>
         <Link to="/rep"> <Button variant="success" className="btn-b">Back</Button></Link>
-          <h1>ITEM WISE</h1>
+          <h1>ITEM WISE REPORT</h1>
         </div>
       </div>
       <div className='row itm'>
         <div className='col-12 itm-c'>
-        <input placeholder='Enter category to search.....' type="text" className='inpt-catg' onChange={(e)=>{setquery(e.target.value)}} value={query}/>
+        <input placeholder='Enter items to search.....' type="text" className='inpt-catg' onChange={(e)=>{setquery(e.target.value)}} value={query}/>
         <Button variant="success" className='btn-catg'>SEARCH</Button>
         </div>
       </div>
       <div className='row'>
-        <div className='col-12 tab-it'>
+        <div className='col-12 tab-it' ref={componentRef}>
           
           <Table>
             <thead>
