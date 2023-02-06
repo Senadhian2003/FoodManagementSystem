@@ -17,8 +17,8 @@ app.use(express.json());
 const db = mysql.createConnection({
   user:'root',
   host:'localhost',
-  password:'root123',
-  database:'mess'
+  password:'root',
+  database:'stock'
 });
 app.use(bodyParser.urlencoded({ extended: true }));
 
