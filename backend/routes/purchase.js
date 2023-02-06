@@ -40,6 +40,10 @@ router.post('/add', async (req, res) => {
   var sql = `INSERT INTO purchase (item,category,quantity,amountkg,amount,date) VALUES (?,?,?,?,?,?)`;
   var sql1 = `Insert ignore into category (item,category) values (?,?)`
   var sql2 = `Insert ignore into vendor (vendorName,category) values (?,?)`
+  var sql3 = `INSERT INTO current (item, category,quantity)
+  VALUES (?,?,?)
+  ON DUPLICATE KEY UPDATE item=?, quantity = quantity+?`
+
 
   await conn.promise().query(sql,[item,category,quantity,amountkg,amount,date], function(err, result) {
     if (err) throw err;
@@ -49,6 +53,9 @@ router.post('/add', async (req, res) => {
   });
   await conn.promise().query(sql2,[category,vendor], function(err, res) {
     if (err) throw err;
+  });
+  await conn.promise().query(sql3,[item, category,quantity,item,quantity], function(err, res) {
+    if (err) console.log(err);
   });
 }
   res.send("Items inserted");

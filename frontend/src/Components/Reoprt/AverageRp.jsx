@@ -15,13 +15,14 @@ export default function Average() {
     const componentRef = useRef();
 
     useEffect(() => {
-        axios.get("http://localhost:3002/average/report",{
+        axios.get("http://localhost:3002/monthly/MonthlyReport",{
             params: {
               fdate:fdate,
               tdate:tdate
             }
           }).then((response) => {
             sdata(response.data)
+            console.log(response)
         });
 
     },[])
@@ -37,7 +38,7 @@ export default function Average() {
           <div className='row'>
         <div className='col-12'>
        <Link to="/rep"> <Button variant="success" className="btn-b">Back</Button></Link>
-          <h1>AVERAGE REPORT</h1>
+          <h1>Comparison</h1>
         </div>
       </div>
       <div className='row itm'>
@@ -51,14 +52,36 @@ export default function Average() {
           <Table >
             <thead>
               <tr>
-                <th>CATEGORY</th>
-                <th>Total Quantity</th>
-                <th>Total AMOUNT</th>
-                <th>Average Amount</th>
+                <th>ITEM</th>
+                <th>JAN</th>
+                <th>FEB</th>
+                <th>MAR</th>
+                <th>APR</th>
+                <th>MAY</th>
+                <th>JUN</th>
+                <th>JUL</th>
+                <th>AUG</th>
+                <th>SEP</th>
+                <th>OCT</th>
+                <th>NOV</th>
+                <th>DEC</th>
               </tr>
             </thead>
             <tbody>
-              {data.filter((e)=>e.item.includes(query.toLocaleUpperCase())).map((e)=>{return(<tr><td>{e.item}</td><td>{e.quantity.toFixed(2)}</td><td>{e.amount.toFixed(2)}</td><td>{(e.amount/e.quantity).toFixed(2)}</td></tr>)})}
+              {data.filter((e)=>e.item.includes(query.toLocaleUpperCase())).map((e)=>{return(<tr><td>{e.item}</td>
+              <td>{e.Jan}</td>
+              <td>{e.Feb}</td>
+              <td>{e.Mar}</td>
+              <td>{e.Apr}</td>
+              <td>{e.May}</td>
+              <td>{e.Jun}</td>
+              <td>{e.Jul}</td>
+              <td>{e.Aug}</td>
+              <td>{e.Sep}</td>
+              <td>{e.Oct}</td>
+              <td>{e.Nov}</td>
+              <td>{e.Dec}</td>
+              </tr>)})}
             </tbody>
           </Table>
         </div>

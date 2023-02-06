@@ -32,13 +32,14 @@ export default function CatogeryRp() {
     console.log(fdate,tdate)
     if(data)return (
     <div className='container-fluid'>
-      <ReactToPrint
+      
+      <div className='row'>
+        <div className='col-12'>
+        <ReactToPrint
         trigger={() => <button className='btn btn-success btn-p'>Print this out!</button>}
         documentTitle="Average Report"
         content={() => componentRef.current}
       />
-      <div className='row'>
-        <div className='col-12'>
         <Link to="/rep"> <Button variant="success" className="btn-b">Back</Button></Link>
           <h1>CATEGORY REPORT</h1>
         </div>
