@@ -6,7 +6,8 @@ const cors = require("cors");
 let bodyParser = require('body-parser');
 const catRtr = require('./routes/catogery');
 const aveRtr= require('./routes/average');
-const mntRtr= require('./routes/monthly');
+const itemBigRtr= require('./routes/itemwiseBig');
+const monthlyRtr= require('./routes/monthly');
 const itmRtr= require('./routes/item');
 const purchaseRtr = require('./routes/purchase');
 
@@ -147,11 +148,12 @@ app.post("/delete", (req, res) => {
       }
     });
   });
-  app.use('/disp',catRtr);
+app.use('/disp',catRtr);
 app.use('/average',aveRtr);
-app.use('/monthly',mntRtr);
+app.use('/monthly',itemBigRtr);
 app.use('/item',itmRtr);
 app.use('/purchase',purchaseRtr);
+app.use('/monthly',monthlyRtr)
 
 app.listen(3002,()=>{
     console.log("You r up!!!");

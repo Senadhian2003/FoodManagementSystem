@@ -12,8 +12,8 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-.sub-nav{
-  
+h1{
+  text-align: center;
 }
 .catg-h3{
   padding: 8px !important;
