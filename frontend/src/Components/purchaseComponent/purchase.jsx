@@ -118,7 +118,7 @@ export default function Purchase() {
     const purchaseInput = document.createElement("input");
     purchaseInput.setAttribute("type","text");
     purchaseInput.setAttribute("list","item");
-    purchaseInput.setAttribute("id", ctr+" item");
+    purchaseInput.setAttribute("id", ctr +" item");
     purchaseInput.addEventListener("blur", getCategory);
     const datalist = document.createElement("datalist");
     datalist.setAttribute("class", "form-select");
@@ -148,7 +148,6 @@ export default function Purchase() {
     input1.setAttribute("placeholder", "Category");
     input1.setAttribute("class", "form-control");
     input1.setAttribute("id", ctr + " category");
-    input1.disabled = true;
     cell3.appendChild(input1);
 
 
@@ -157,8 +156,6 @@ export default function Purchase() {
     input2.setAttribute("placeholder", "Vendor");
     input2.setAttribute("class", "form-control");
     input2.setAttribute("id", ctr + " vendor");
-    input2.disabled = true;
-
     cell4.appendChild(input2);
 
 
@@ -193,7 +190,6 @@ export default function Purchase() {
 }
 }
 
-  
   return (
     <div className="container-fluid">
       <div className="row">
@@ -250,7 +246,6 @@ export default function Purchase() {
         <Button >Submit</Button>
         <Button onClick={()=>{setmod(false)}}>CLOSE</Button>
       </Modal>
-      
             <Table striped bordered hover id="table">
           <thead>
             <tr>
@@ -271,10 +266,8 @@ export default function Purchase() {
                 <datalist
                   className="form-select"
                   aria-label="Default select example"
-                  
                   id="item"
                   hidden
-              
                 >                  
                   {items.map((item, idx) => {
                     return (
@@ -292,7 +285,6 @@ export default function Purchase() {
                     className="form-control"
                     placeholder="Category"
                     id="1 category"
-                    
                     defaultValue=""
                   />
                 </div>
