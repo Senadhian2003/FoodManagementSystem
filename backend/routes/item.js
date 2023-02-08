@@ -6,9 +6,9 @@ const router = express.Router();
 router.get('/hi', async(req,res)=>{
     let lst= []
     
-    let result= await db.promise().query(`select p_sub.item, p_sub.quantity as purchaseQuantity,p_sub.amount as purchaseAmount ,COALESCE((SELECT quantity FROM closingstock WHERE date<='2023-01-01' and item=p_sub.item ORDER BY date DESC limit 1),0) as closingStock, COALESCE(d_sub.RMK,0) as RMK,COALESCE(d_sub.RMD,0) as RMD, COALESCE(d_sub.RMKCET,0) as RMKCET, COALESCE(d_sub.RMKSCHOOL,0) as RMKSCHOOL  from (select item,sum(quantity) as quantity, sum(amount) as amount from purchase where date between '2023-01-01' 
-    and '2023-02-27' group by item)p_sub left join (select item,sum(RMK) as RMK,sum(RMD) as RMD, sum(RMKCET) as RMKCET, sum(RMKSCHOOL) as RMKSCHOOL from dispatch1 where date between '2023-01-01' 
-    and '2023-02-27' group by item)d_sub on p_sub.item=d_sub.item;`);
+    let result= await db.promise().query(`select p_sub.item, p_sub.quantity as purchaseQuantity,p_sub.amount as purchaseAmount ,COALESCE((SELECT quantity FROM closingstock WHERE date<='${req.query.fdate}' and item=p_sub.item ORDER BY date DESC limit 1),0) as closingStock, COALESCE(d_sub.RMK,0) as RMK,COALESCE(d_sub.RMD,0) as RMD, COALESCE(d_sub.RMKCET,0) as RMKCET, COALESCE(d_sub.RMKSCHOOL,0) as RMKSCHOOL  from (select item,sum(quantity) as quantity, sum(amount) as amount from purchase where date between '${req.query.fdate}' 
+    and '${req.query.tdate}' group by item)p_sub left join (select item,sum(RMK) as RMK,sum(RMD) as RMD, sum(RMKCET) as RMKCET, sum(RMKSCHOOL) as RMKSCHOOL from dispatch1 where date between '${req.query.fdate}' 
+    and '${req.query.tdate}' group by item)d_sub on p_sub.item=d_sub.item;`);
 
     console.log(result[0])
 

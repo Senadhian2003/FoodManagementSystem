@@ -55,6 +55,7 @@ export default function ItemRp() {
             <thead>
               <tr>
                 <th>ITEMS</th>
+                <th>OPENING STOCK</th>
                 <th>PURCHASE</th>
                 <th>RMK</th>
                 <th>RMD</th>
@@ -64,7 +65,18 @@ export default function ItemRp() {
               </tr>
             </thead>
             <tbody>
-          {data.filter((e)=>e.ITEMNAME.includes(query.toLocaleUpperCase())).map((e)=>{return(<tr><td>{e.ITEMNAME}</td><td>{e.RMD}</td><td>{e.RMK}</td><td>{e.RMKCET}</td><td>{e.SCHOOL}</td><td>{e.closingStock}</td>{e.purchaseQuantity}<td></td></tr>)})}
+          {data.filter((e)=>e.item.includes(query.toLocaleUpperCase())).map((e)=>{return(
+          <tr>
+            <td>{e.item}</td>
+            <td>{e.closingStock}</td>
+            <td>{e.purchaseQuantity}</td>
+            <td>{e.RMD}</td>
+            <td>{e.RMK}</td>
+            <td>{e.RMKCET}</td>
+            <td>{e.RMKSCHOOL}</td>
+            <td>{e.RMK+e.RMD+e.RMKCET+e.RMKSCHOOL}</td>
+            
+            </tr>)})}
             </tbody>
           </Table>
         </div>
