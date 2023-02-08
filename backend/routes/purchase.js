@@ -1,14 +1,10 @@
 const mysql=require('mysql2');
 var express = require('express');
+const db = require('../database');
 var router = express.Router();
-const conn = mysql.createConnection({
-  host: 'localhost', 
-  user: 'root',      
-  password: 'root123',      
-  database: 'mess' 
-}); 
 
-conn.connect(function(err) {
+
+db.connect(function(err) {
   if (err) throw err;
   console.log('Database is connected successfully !');
 });
@@ -19,7 +15,7 @@ const bodyParser = require('body-parser');
 
 router.get('/getItems', async(req,res)=>{
     
-  const items = await conn.promise().query(`SELECT DISTINCT(item) FROM category ORDER BY item;`);
+  const items = await db.promise().query(`SELECT DISTINCT(item) FROM category ORDER BY item;`);
   res.status(200).send(items[0]);
 
 });
@@ -50,13 +46,13 @@ router.post('/add', async (req, res) => {
   const finalQuantity = (currentQuantity + quantity);
   console.log(finalQuantity);
 
-  await conn.promise().query(sql,[item,category,quantity,amountkg,amount,date], function(err, result) {
+  await db.promise().query(sql,[item,category,quantity,amountkg,amount,date], function(err, result) {
     if (err) throw err;
   });
-  await conn.promise().query(sql1,[item,category], function(err, re) {
+  await db.promise().query(sql1,[item,category], function(err, re) {
     if (err) throw err;
   });
-  await conn.promise().query(sql2,[category,vendor], function(err, res) {
+  await db.promise().query(sql2,[category,vendor], function(err, res) {
     if (err) throw err;
   }); 
 
@@ -74,7 +70,7 @@ router.post('/add', async (req, res) => {
 router.post('/getCategoryVendor',function(req,res){
 let item=req.body.item;
 let sql=`select vendorName,category from vendor where category = (select distinct(category) from category where item='${item}' limit 1)`;
-conn.query(sql,item,function(err,result){
+db.query(sql,item,function(err,result){
   if(err) throw err;
   res.send(result);
 })   

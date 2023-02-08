@@ -10,17 +10,13 @@ const itemBigRtr= require('./routes/itemwiseBig');
 const monthlyRtr= require('./routes/monthly');
 const itmRtr= require('./routes/item');
 const purchaseRtr = require('./routes/purchase');
+const db = require('./database');
 
 app.use(cors());
 app.use(express.json());
 
 
-const db = mysql.createConnection({
-  user:'root',
-  host:'localhost',
-  password:'root123',
-  database:'mess'
-});
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/dispatch',dispatchRtr);
