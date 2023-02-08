@@ -9,7 +9,7 @@ router.get('/report', async(req,res)=>{
     
   
     let result= await db.promise().query(`select purchase.item as ITEMNAME,(select sum(quantity) from purchase where date>='${req.query.fdate}' and date <='${req.query.tdate}' and item=ItemName) as purchaseQuantity,(select sum(amount) from purchase where date>='${req.query.fdate}' and date <='${req.query.tdate}' and item=ItemName) as purchasedamount,(SELECT quantity FROM closingstock WHERE date<='2023-01-01' and item=ItemName ORDER BY date DESC limit 1) as closingStock, sum(dispatch1.RMK) as RMK, sum(dispatch1.RMD) as RMD, sum(dispatch1.RMKCET) as RMKCET,
-    sum(dispatch1.RMKSCHOOL) as SCHOOL from purchase inner join dispatch1 on purchase.item = dispatch1.item where purchase.date>='2023-01-01' and purchase.date<='2023-01-30' group by dispatch1.item,purchase.item
+    sum(dispatch1.RMKSCHOOL) as SCHOOL from purchase inner join dispatch1 on purchase.item = dispatch1.item where purchase.date>='${req.query.fdate}' and purchase.date<='${req.query.tdate}' group by dispatch1.item,purchase.item
     `);
 
     console.log(result[0])

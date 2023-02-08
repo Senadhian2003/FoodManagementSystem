@@ -27,7 +27,7 @@ router.get('/getItems', async(req,res)=>{
 router.post('/add', async (req, res) => {
   console.log("jus print");
   var arr = req.body.arr;
-  console.log(req.body.arr);
+  // console.log(req.body.arr);
   var length = arr.length;
   let date=req.body.date;
   for(let i=0;i<length;i++){
@@ -40,10 +40,15 @@ router.post('/add', async (req, res) => {
   var sql = `INSERT INTO purchase (item,category,quantity,amountkg,amount,date) VALUES (?,?,?,?,?,?)`;
   var sql1 = `Insert ignore into category (item,category) values (?,?)`
   var sql2 = `Insert ignore into vendor (vendorName,category) values (?,?)`
-  var sql3 = `INSERT INTO current (item, category,quantity)
-  VALUES (?,?,?)
-  ON DUPLICATE KEY UPDATE item=?, quantity = quantity+?`
+  
+    
 
+  const currqty = await conn.promise().query(`select * from current where item='${item}'`);
+  const currentQuantity = currqty[0][0].quantity;
+  console.log(currentQuantity)
+
+  // const finalquantity = currentQuantity + quantity;
+  // console.log(finalquantity);
 
   await conn.promise().query(sql,[item,category,quantity,amountkg,amount,date], function(err, result) {
     if (err) throw err;
@@ -54,9 +59,7 @@ router.post('/add', async (req, res) => {
   await conn.promise().query(sql2,[category,vendor], function(err, res) {
     if (err) throw err;
   });
-  await conn.promise().query(sql3,[item, category,quantity,item,quantity], function(err, res) {
-    if (err) console.log(err);
-  });
+  
 }
   res.send("Items inserted");
 
