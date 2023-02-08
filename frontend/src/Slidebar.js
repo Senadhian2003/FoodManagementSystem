@@ -18,12 +18,12 @@ function Slidebar() {
   <Menu>
     <div className='row'> <MenuItem> <img src={rmk} className='logo'/> </MenuItem></div>
     <div className='cont'>
-    <div className='row'> <MenuItem className='sub-nav sub-n'> <ShopIcon className="linkt"/> <Link to='/purs' className='pur linkt'>Purchase</Link>  </MenuItem></div>
- <div className='row'><MenuItem className='sub-n'><LocalShippingIcon className="linkt"/><Link to='/dis' className="linkt"> Dispatch </Link> </MenuItem></div>
- <div className='row'><MenuItem className='sub-n'><StoreIcon className="linkt"/> <Link to='/stock' className="linkt">Available Stock</Link> </MenuItem></div>
- <div className='row'> <MenuItem className='sub-n'><AssessmentIcon className="linkt"/><Link to='/rep' className="linkt"> Reports</Link> </MenuItem></div>
+    <div className='row'> <Link to='/purs' className='pur linkt'> <MenuItem className='sub-nav sub-n'> <ShopIcon className="linkt"/>Purchase  </MenuItem></Link></div>
+ <div className='row'><Link to='/dis' className="linkt"><MenuItem className='sub-n'><LocalShippingIcon className="linkt"/> Dispatch  </MenuItem></Link></div>
+ <div className='row'><Link to='/stock' className="linkt"><MenuItem className='sub-n'><StoreIcon className="linkt"/> Available Stock </MenuItem></Link></div>
+ <div className='row'> <Link to='/rep' className="linkt"><MenuItem className='sub-n'><AssessmentIcon className="linkt"/> Reports </MenuItem></Link></div>
 
- <div className='row'><MenuItem className='sub-n'><LogoutIcon className="linkt"/><Link to='/' className="linkt">  Logout</Link> </MenuItem></div>
+ <div className='row'><Link to='/' className="linkt"> <MenuItem className='sub-n'><LogoutIcon className="linkt"/> Logout </MenuItem></Link></div>
     </div>
   </Menu>
 </Sidebar>

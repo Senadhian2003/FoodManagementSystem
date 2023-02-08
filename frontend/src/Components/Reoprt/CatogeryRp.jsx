@@ -24,7 +24,7 @@ export default function CatogeryRp() {
           }).then((response) => {
             sdata(response.data)
 
-            console.log(response.data)
+            console.log(response.data,"AVAIL")
         });
 
     },[])

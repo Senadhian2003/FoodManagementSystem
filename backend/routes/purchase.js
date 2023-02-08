@@ -33,7 +33,7 @@ router.post('/add', async (req, res) => {
   for(let i=0;i<length;i++){
   var item=arr[i].item;
   var category=arr[i].category;
-  var quantity=arr[i].quantity;
+  var quantity=parseInt(arr[i].quantity);
   var amountkg=arr[i].amount;
   var amount=arr[i].total;
   var vendor=arr[i].vendor;
@@ -44,11 +44,11 @@ router.post('/add', async (req, res) => {
     
 
   const currqty = await conn.promise().query(`select * from current where item='${item}'`);
-  const currentQuantity = currqty[0][0].quantity;
+  const currentQuantity = parseInt(currqty[0][0].quantity);
   console.log(currentQuantity)
 
-  // const finalquantity = currentQuantity + quantity;
-  // console.log(finalquantity);
+  const finalQuantity = (currentQuantity + quantity);
+  console.log(finalQuantity);
 
   await conn.promise().query(sql,[item,category,quantity,amountkg,amount,date], function(err, result) {
     if (err) throw err;
@@ -58,7 +58,13 @@ router.post('/add', async (req, res) => {
   });
   await conn.promise().query(sql2,[category,vendor], function(err, res) {
     if (err) throw err;
-  });
+  }); 
+
+  conn.promise().query(`update current set quantity=${finalQuantity} where item='${item}'`);
+    var sql = `INSERT INTO closingstock (item,quantity,date) VALUES (?,?,?)`; 
+    await conn.promise().query(sql,[item,finalQuantity,date], function(err, result) {
+      if (err) throw err; 
+    });
   
 }
   res.send("Items inserted");

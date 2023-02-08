@@ -14,15 +14,19 @@
     margin-top: 70px;
 }
 .btn-p{
-    margin-left: 100px !important;
-    margin-top: 10px;
+    float: right;
+    margin-right: 30px;
+    margin-top: 40px;
     margin-bottom: -80px;
 }
 .inpt-catg{
     margin-left: 10px !important;
 }
 .btn-b{
-    margin-top: 20px;
+    float: left;
+    margin-right: 30px;
+    margin-top: 40px;
+    margin-bottom: -80px;
 }
 .tab-it{
     margin-top: 50px;

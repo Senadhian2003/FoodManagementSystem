@@ -58,6 +58,8 @@ export default function MonthlyRp() {
   <thead>
     <tr>
       <th scope="col" rowspan="2">Item Name</th>
+      <th scope="col" rowspan="2">Opening Stock</th>
+      <th scope="col" colspan="2">Purchase</th>
       <th scope="col" colSpan="2">RMK</th>
       <th scope="col" colSpan="2">RMD</th>
       <th scope="col" colSpan="2">RMKCET</th>
@@ -73,6 +75,8 @@ export default function MonthlyRp() {
       <th scope="col">Amount</th>
       <th scope="col">Qty</th>
       <th scope="col">Amount</th>
+      <th scope="col">Qty</th>
+      <th scope="col">Amount</th>
       
     </tr>
   </thead>
@@ -80,6 +84,9 @@ export default function MonthlyRp() {
   {data.filter(e=>e.ITEMNAME.includes(query.toLocaleUpperCase())).map((e)=>{return(
                 <tr>
                   <td>{e.ITEMNAME}</td>
+                  <td>{e.closingStock}</td>
+                  <td>{e.purchaseQuantity}</td>
+                  <td>{e.purchasedamount}</td>
                   <td>{e.RMK}</td>
                   <td>{((e.purchasedamount/e.purchaseQuantity)*e.RMK).toFixed(2)}</td>
                   <td>{e.RMD}</td>

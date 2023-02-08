@@ -14,8 +14,10 @@ function Stock() {
     useEffect(()=>{
         Axios.get("http://localhost:3002/stock").then((res)=>{
           setcurr(res.data);
+          console.log(res.data)
+
         })
-      })
+      },[])
       const sell = () => {
         curr.map((e)=>{console.log(e.quantity)})
       }
@@ -45,7 +47,7 @@ function Stock() {
                         </tr>
                     </thead>
                     <tbody>
-                        {curr.filter((e)=>e.item.includes(query)).map((e)=>{
+                        {curr.filter((e)=>(e.item + e.category).includes(query)).map((e)=>{
                             return(
                             <tr>
                                 <td>{e.item}</td>

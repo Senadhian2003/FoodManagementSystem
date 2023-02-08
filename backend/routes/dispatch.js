@@ -51,7 +51,7 @@ router.post('/updateDispatch',async(req,res)=>{
     // db.promise().query(`INSERT INTO dispatch(item,quantity,place,date,category) VALUES('${itemName}','${school}','SCHOOL','${date}','${category}')`);
     db.promise().query(`update current set quantity=${currentQuantity} where item='${itemName}'`);
     var sql = `INSERT INTO closingstock (item,quantity,date) VALUES (?,?,?)`; 
-    await db.promise().query(sql,[item,currentQuantity,date], function(err, result) {
+    await db.promise().query(sql,[itemName,currentQuantity,date], function(err, result) {
       if (err) throw err; 
     });
     }
