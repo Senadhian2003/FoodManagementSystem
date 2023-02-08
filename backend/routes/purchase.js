@@ -67,7 +67,7 @@ router.post('/add', async (req, res) => {
 
 router.post('/getCategoryVendor',function(req,res){
 let item=req.body.item;
-let sql=`select vendorName,category from vendor where category = (select distinct(category) from category where item='${item}')`;
+let sql=`select vendorName,category from vendor where category = (select distinct(category) from category where item='${item}' limit 1)`;
 conn.query(sql,item,function(err,result){
   if(err) throw err;
   res.send(result);
