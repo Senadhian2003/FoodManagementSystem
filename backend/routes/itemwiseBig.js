@@ -8,9 +8,9 @@ router.get('/report', async(req,res)=>{
      
     
   
-    let result= await db.promise().query(`select purchase.item as ITEMNAME,(select sum(quantity) from purchase where date>='${req.query.fdate}' and date <='${req.query.tdate}' and item=ItemName) as purchaseQuantity,(select sum(amount) from purchase where date>='${req.query.fdate}' and date <='${req.query.tdate}' and item=ItemName) as purchasedamount,(SELECT quantity FROM closingstock WHERE date<='2023-01-01' and item=ItemName ORDER BY date DESC limit 1) as closingStock, sum(dispatch1.RMK) as RMK, sum(dispatch1.RMD) as RMD, sum(dispatch1.RMKCET) as RMKCET,
-    sum(dispatch1.RMKSCHOOL) as SCHOOL from purchase inner join dispatch1 on purchase.item = dispatch1.item where purchase.date>='${req.query.fdate}' and purchase.date<='${req.query.tdate}' group by dispatch1.item,purchase.item
-    `);
+    let result= await db.promise().query(`select p_sub.item, p_sub.quantity as purchaseQuantity,p_sub.amount as purchaseAmount ,COALESCE((SELECT quantity FROM closingstock WHERE date<='2023-01-01' and item=p_sub.item ORDER BY date DESC limit 1),0) as closingStock, COALESCE(d_sub.RMK,0) as RMK,COALESCE(d_sub.RMD,0) as RMD, COALESCE(d_sub.RMKCET,0) as RMKCET, COALESCE(d_sub.RMKSCHOOL,0) as RMKSCHOOL  from (select item,sum(quantity) as quantity, sum(amount) as amount from purchase where date between '2023-01-01' 
+    and '2023-02-27' group by item)p_sub left join (select item,sum(RMK) as RMK,sum(RMD) as RMD, sum(RMKCET) as RMKCET, sum(RMKSCHOOL) as RMKSCHOOL from dispatch1 where date between '2023-01-01' 
+    and '2023-02-27' group by item)d_sub on p_sub.item=d_sub.item; `);
 
     console.log(result[0])
     
