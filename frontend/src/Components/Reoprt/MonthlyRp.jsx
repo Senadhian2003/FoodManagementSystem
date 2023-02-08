@@ -58,13 +58,19 @@ export default function MonthlyRp() {
   <thead>
     <tr>
       <th scope="col" rowspan="2">Item Name</th>
+      <th scope="col" rowspan="2">OPENING STOCK</th>
+      <th scope="col" colSpan="2">PURCHASE</th>
       <th scope="col" colSpan="2">RMK</th>
       <th scope="col" colSpan="2">RMD</th>
       <th scope="col" colSpan="2">RMKCET</th>
       <th scope="col" colSpan="2">SCHOOL</th>
-      <th scope="col" rowspan="2">Closing</th>
+      <th scope="col" colspan="2">ISSUE TOTAL</th>
     </tr>
     <tr>
+      <th scope="col">Qty</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Qty</th>
+      <th scope="col">Amount</th>
       <th scope="col">Qty</th>
       <th scope="col">Amount</th>
       <th scope="col">Qty</th>
@@ -77,18 +83,23 @@ export default function MonthlyRp() {
     </tr>
   </thead>
   <tbody>
-  {data.filter(e=>e.ITEMNAME.includes(query.toLocaleUpperCase())).map((e)=>{return(
+  {data.filter(e=>e.item.includes(query.toLocaleUpperCase())).map((e)=>{return(
                 <tr>
-                  <td>{e.ITEMNAME}</td>
-                  <td>{e.RMK}</td>
-                  <td>{((e.purchasedamount/e.purchaseQuantity)*e.RMK).toFixed(2)}</td>
-                  <td>{e.RMD}</td>
-                  <td>{((e.purchasedamount/e.purchaseQuantity)*e.RMD).toFixed(2)}</td>
-                  <td>{e.RMKCET}</td>
-                  <td>{((e.purchasedamount/e.purchaseQuantity)*e.RMKCET).toFixed(2)}</td>
-                  <td>{e.SCHOOL}</td>
-                  <td>{((e.purchasedamount/e.purchaseQuantity)*e.SCHOOL).toFixed(2)}</td>
+                  <td>{e.item}</td>
                   <td>{e.closingStock}</td>
+                 
+                  <td>{e.purchaseQuantity}</td>
+                  <td>{e.purchaseAmount}</td>
+                  <td>{e.RMK}</td>
+                  <td>{((e.purchaseAmount/e.purchaseQuantity)*e.RMK).toFixed(2)}</td>
+                  <td>{e.RMD}</td>
+                  <td>{((e.purchaseAmount/e.purchaseQuantity)*e.RMD).toFixed(2)}</td>
+                  <td>{e.RMKCET}</td>
+                  <td>{((e.purchaseAmount/e.purchaseQuantity)*e.RMKCET).toFixed(2)}</td>
+                  <td>{e.RMKSCHOOL}</td>
+                  <td>{((e.purchaseAmount/e.purchaseQuantity)*e.RMKSCHOOL).toFixed(2)}</td>
+                  <td>{e.RMK+e.RMD+e.RMKCET+e.RMKSCHOOL}</td>
+                  <td>{((e.purchaseAmount/e.purchaseQuantity)*(e.RMK+e.RMD+e.RMKCET+e.RMKSCHOOL)).toFixed(2)}</td>
                 </tr>
               )})}
     
