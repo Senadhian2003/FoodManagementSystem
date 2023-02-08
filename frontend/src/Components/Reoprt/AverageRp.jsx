@@ -22,7 +22,7 @@ export default function Average() {
             }
           }).then((response) => {
             sdata(response.data)
-            console.log(response)
+            console.log(response,"Com")
         });
 
     },[])
@@ -52,35 +52,78 @@ export default function Average() {
           <Table >
             <thead>
               <tr>
-                <th>ITEM</th>
-                <th>JAN</th>
-                <th>FEB</th>
-                <th>MAR</th>
-                <th>APR</th>
-                <th>MAY</th>
-                <th>JUN</th>
-                <th>JUL</th>
-                <th>AUG</th>
-                <th>SEP</th>
-                <th>OCT</th>
-                <th>NOV</th>
-                <th>DEC</th>
+                <th scope="col"  rowspan="2">ITEM</th>
+                <th scope="col" colSpan="2">JAN</th>
+                <th scope="col" colSpan="2">FEB</th>
+                <th scope="col" colSpan="2">MAR</th>
+                <th scope="col" colSpan="2">APR</th>
+                <th scope="col" colSpan="2">MAY</th>
+                <th scope="col" colSpan="2">JUN</th>
+                <th scope="col" colSpan="2">JUL</th>
+                <th scope="col" colSpan="2">AUG</th>
+                <th scope="col" colSpan="2">SEP</th>
+                <th scope="col" colSpan="2">OCT</th>
+                <th scope="col" colSpan="2">NOV</th>
+                <th scope="col" colSpan="2">DEC</th>
+              </tr>
+              <tr>
+                
+                
+                <td scope="col" >Qty</td>
+                <th scope="col" >AMT</th>
+                <th scope="col" >Qty</th>
+                <th scope="col" >AMT</th>
+                <th scope="col" >Qty</th>
+                <th scope="col" >AMT</th>
+                <th scope="col" >Qty</th>
+                <th scope="col" >AMT</th>
+                <th scope="col" >Qty</th>
+                <th scope="col" >AMT</th>
+                <th scope="col" >Qty</th>
+                <th scope="col" >AMT</th>
+                <th scope="col" >Qty</th>
+                <th scope="col" >AMT</th>
+                <th scope="col" >Qty</th>
+                <th scope="col" >AMT</th>
+                <th scope="col" >Qty</th>
+                <th scope="col" >AMT</th>
+                <th scope="col" >Qty</th>
+                <th scope="col" >AMT</th>
+                <th scope="col" >Qty</th>
+                <th scope="col" >AMT</th>
+                <th scope="col" >Qty</th>
+                <th scope="col" >AMT</th>
+               
+                
               </tr>
             </thead>
             <tbody>
               {data.filter((e)=>e.item.includes(query.toLocaleUpperCase())).map((e)=>{return(<tr><td>{e.item}</td>
-              <td>{e.Jan}</td>
-              <td>{e.Feb}</td>
-              <td>{e.Mar}</td>
-              <td>{e.Apr}</td>
-              <td>{e.May}</td>
-              <td>{e.Jun}</td>
-              <td>{e.Jul}</td>
-              <td>{e.Aug}</td>
-              <td>{e.Sep}</td>
-              <td>{e.Oct}</td>
-              <td>{e.Nov}</td>
-              <td>{e.Dec}</td>
+              <td>{e.Jan_Amount}</td>
+              <td>{e.Jan_Quantity}</td>
+              <td>{e.Feb_Amount}</td>
+              <td>{e.Feb_Quantity}</td>
+              <td>{e.Mar_Amount}</td>
+              <td>{e.Mar_Quantity}</td>
+              <td>{e.Apr_Amount}</td>
+              <td>{e.Apr_Quantity}</td>
+              <td>{e.May_Amount}</td>
+              <td>{e.May_Quantity}</td>
+              <td>{e.Jun_Amount}</td>
+              <td>{e.Jun_Quantity}</td>
+              <td>{e.Jul_Amount}</td>
+              <td>{e.Jul_Quantity}</td>
+              <td>{e.Aug_Amount}</td>
+              <td>{e.Aug_Quantity}</td>
+              <td>{e.Sep_Amount}</td>
+              <td>{e.Sep_Quantity}</td>
+              <td>{e.Oct_Amount}</td>
+              <td>{e.Oct_Quantity}</td>
+              <td>{e.Nov_Amount}</td>
+              <td>{e.Nov_Quantity}</td>
+              <td>{e.Dec_Amount}</td>
+              <td>{e.Dec_Quantity}</td>
+              
               </tr>)})}
             </tbody>
           </Table>

@@ -184,17 +184,7 @@ export default function Dispatch() {
 
     cell3.appendChild(input1);
 
-    //current Quantity
-
-    let input2 = document.createElement("input");
-    input2.setAttribute("type", "number");
-    input2.setAttribute("placeholder", "Current Quantity");
-    input2.setAttribute("class", "form-control");
-    input2.setAttribute("id", ctr + " currquantity");
-    input2.defaultValue = 0;
-    input2.disabled = true;
-
-    cell4.appendChild(input2);
+    
 
     //RMK
 
@@ -206,7 +196,7 @@ export default function Dispatch() {
     input3.defaultValue = 0;
     input3.addEventListener("change", addValue, false);
 
-    cell5.appendChild(input3);
+    cell4.appendChild(input3);
 
     //RMD
 
@@ -218,7 +208,7 @@ export default function Dispatch() {
     input4.defaultValue = 0;
     input4.addEventListener("change", addValue, false);
 
-    cell6.appendChild(input4);
+    cell5.appendChild(input4);
 
     let input5 = document.createElement("input");
     input5.setAttribute("type", "number");
@@ -228,8 +218,9 @@ export default function Dispatch() {
     input5.defaultValue = 0;
     input5.addEventListener("change", addValue, false);
 
-    cell7.appendChild(input5);
+    cell6.appendChild(input5);
 
+    //school
     let input6 = document.createElement("input");
     input6.setAttribute("type", "number");
     input6.setAttribute("placeholder", "School");
@@ -238,7 +229,19 @@ export default function Dispatch() {
     input6.defaultValue = 0;
     input6.addEventListener("change", addValue, false);
 
-    cell8.appendChild(input6);
+    cell7.appendChild(input6);
+
+    //current Quantity
+
+    let input2 = document.createElement("input");
+    input2.setAttribute("type", "number");
+    input2.setAttribute("placeholder", "Current Quantity");
+    input2.setAttribute("class", "form-control");
+    input2.setAttribute("id", ctr + " currquantity");
+    input2.defaultValue = 0;
+    input2.disabled = true;
+
+    cell8.appendChild(input2);
 
     cell1.innerHTML = ctr;
     ctr+=1;
@@ -258,15 +261,16 @@ export default function Dispatch() {
 <div className="col-9">
       <div className="container">
         
-          <h1 className="h1-dis">DISPATCH SECTION</h1>
+      <h1 className="h1-dis">FOOD MANAGMENT SYSTEM</h1>
+          <h2 className="h2-dis">STOCK DISTRIBUTION</h2>
         <div className="row r-dis">
           <div className="col-3 dat-d">
-          <label for="date"> Date:</label>
+          <label for="date"> <b>Date:</b></label>
  <input type="date" id="date" name="date" className="inpt-d"/>
           </div>
            <div className="col-3"></div>
            <div className="col-3">
-            <label for="number" id="row" className="lab-d">Enter number of rows : </label>
+            <label for="number" id="row" className="lab-d"><b>Enter number of rows :</b></label>
           <input type="number" id="num"  className="inpt-r"/>
           <button class="btn btn-primary btn-pur" id="add-btn" onClick={addRow}>Add</button>
           {/* <button onClick={()=>{setmod(true)}}>Add Item</button> */}
@@ -280,11 +284,12 @@ export default function Dispatch() {
       <th>#</th>
       <th>Select Item</th>
       <th>Total Quantity</th>
-      <th>Current Quantity</th>
+      
       <th>RMK</th>
       <th>RMD</th>
       <th>RMKCET</th>
       <th>School</th>
+      <th>Current Quantity</th>
     </tr>
   </thead>
   <tbody>
@@ -322,20 +327,7 @@ export default function Dispatch() {
           />
         </div>
       </td>
-      <td>
-        <div class="input-group mb-3">
-          <input
-            type="number"
-            class="form-control"
-            placeholder="Cureent Quantity"
-            aria-label="Recipient's username"
-            aria-describedby="basic-addon2"
-            id="1 currquantity"
-            defaultValue={0}
-            disabled
-          />
-        </div>
-      </td>
+      
       <td>
         <div class="input-group mb-3">
           <input
@@ -390,6 +382,21 @@ export default function Dispatch() {
             id="1 SCHOOL"
             defaultValue={0}
             onChange={addValue}
+          />
+        </div>
+      </td>
+
+      <td>
+        <div class="input-group mb-3">
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Cureent Quantity"
+            aria-label="Recipient's username"
+            aria-describedby="basic-addon2"
+            id="1 currquantity"
+            defaultValue={0}
+            disabled
           />
         </div>
       </td>

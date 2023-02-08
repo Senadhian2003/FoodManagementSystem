@@ -200,15 +200,16 @@ export default function Purchase() {
         </div>
         <div className="col-9">
           <div className="container">
-          <h1 className="h1-dis">PURCHASE SECTION</h1>
+          <h1 className="h1-dis">FOOD MANAGMENT SYSTEM</h1>
+          <h2 className="h2-dis">PURCHASE</h2>
             <div className="row r-dis">
               <div className="col-3">
-              <label for="date" id="date-label">Date:</label>
+              <label for="date" id="date-label"><b >Date:</b></label>
           <input type="date" id="date" name="date" className="inpt-d"/>
               </div>
               <div className="col-3"></div>
               <div className="col-3">
-              <label for="number" id="row">Enter number of rows : </label>
+              <label for="number" id="row"><b>Enter number of rows :</b> </label>
           <input type="number" id="num"  className="inpt-r"/>
           <button class="btn btn-primary btn-pur" id="add-btn" onClick={generateRows}>Add</button>
           {/* <button onClick={()=>{setmod(true)}}>Add Item</button> */}
@@ -247,7 +248,7 @@ export default function Purchase() {
         <Button onClick={()=>{setmod(false)}}>CLOSE</Button>
       </Modal>
             <Table striped bordered hover id="table">
-          <thead>
+          <thead  className="t-pur">
             <tr>
               <th>SNo</th>
               <th>Select Item</th>

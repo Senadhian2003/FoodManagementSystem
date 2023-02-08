@@ -64,7 +64,7 @@ function Report() {
   <button className="btn btn-d btn-success" onClick={monthly}>Monthly</button>  
             </div>
             <div className='col-6 card-r card'><div class="card-body">
-              <h2 className='card-title'>CATEGORY WISE</h2>
+              <h2 className='card-title'>CATEGORY-WISE</h2>
               <div className='row'>
               <div className='col-6'><h5 class="card-subtitle ">From</h5>
             <input type="date" value={fdate} onChange={(e)=>sfdate(e.target.value)} className="inp-mon"/></div>
@@ -78,7 +78,7 @@ function Report() {
   
             </div>
           <div className='row'><div className='col-6 card-r card'><div class="card-body">
-              <h2 className='card-title'>ITEM WISE</h2>
+              <h2 className='card-title'>ITEM-WISE</h2>
               <div className='row'>
               <div className='col-6'><h5 class="card-subtitle ">From</h5>
             <input type="date" value={fdate} onChange={(e)=>sfdate(e.target.value)} className="inp-mon"/></div>
@@ -89,7 +89,7 @@ function Report() {
   </div>
   <button onClick={item} className="btn btn-d btn-success">Item</button>
   </div><div className='col-6 card card-r'><div class="card-body">
-              <h2 className='card-title'>AVERAGE</h2>
+              <h2 className='card-title'>COMPARISON</h2>
               <div className='row'>
               <div className='col-6'><h5 class="card-subtitle ">From</h5>
             <input type="date" value={fdate} onChange={(e)=>sfdate(e.target.value)} className="inp-mon"/></div>

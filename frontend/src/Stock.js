@@ -28,7 +28,7 @@ function Stock() {
                 </ProSidebarProvider>
             </div>
             <div className='col-9'>
-                <h1 className='stock'>Available STOCK</h1>
+                <h1 className='stock'>AVAILABLE   STOCK</h1>
 <br></br>
 <div className='ser-ava'>
 <SearchIcon/>

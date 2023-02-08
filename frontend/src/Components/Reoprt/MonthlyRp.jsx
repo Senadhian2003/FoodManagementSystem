@@ -32,13 +32,14 @@ export default function MonthlyRp() {
     console.log(data)
     if(data)return (
       <div className='container-fluid'>
-        <ReactToPrint
+        
+        <div className='row'>
+          <div className='col-12'> 
+          <ReactToPrint
         trigger={() => <button className='btn btn-success btn-p'>Print this out!</button>}
         documentTitle="Average Report"
         content={() => componentRef.current}
       />
-        <div className='row'>
-          <div className='col-12'>
           <Link to="/rep"> <Button variant="success" className="btn-b">Back</Button></Link>
             <h1>Monthly Report</h1>
           </div>

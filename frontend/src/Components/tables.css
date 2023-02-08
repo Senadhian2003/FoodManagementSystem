@@ -27,14 +27,24 @@ margin-top: 20px;
 .btn-dis2{
     margin-left: 40%;
 }
+.t-pur{
+    background-color: rgb(5, 136, 62) !important;
+}
 .tab-dis{
     padding-top: 50px;
     margin-left: -20px;
     width: 100%;
 }
+
 .h1-dis{
     margin-left: -200px;
     padding: 25px;
+    color: rgb(10, 130, 10);
+}
+.h2-dis{
+    margin-left: -200px;
+    padding: 12px;
+    color: rgb(2, 71, 2);
 }
 .lab-d{
     margin-top: 20px!important;
