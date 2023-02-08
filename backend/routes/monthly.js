@@ -29,12 +29,13 @@ SELECT item, date, SUM(quantity) as quantity
 FROM purchase
 WHERE date BETWEEN '${f}' AND '${t}'
 GROUP BY item, date
+
 ) p_sub ON c.item = p_sub.item
 GROUP BY c.item`);
 
-    // console.log(result[0])
+    // console.log(result[0])  
     res.status(200).send(result[0]);
 
 });
 
-module.exports = router;
+module.exports = router;      
