@@ -57,8 +57,8 @@ router.post('/add', async (req, res) => {
   }); 
 
   conn.promise().query(`update current set quantity=${finalQuantity} where item='${item}'`);
-    var sql = `INSERT INTO closingstock (item,quantity,date) VALUES (?,?,?)`; 
-    await conn.promise().query(sql,[item,finalQuantity,date], function(err, result) {
+    var sql = `INSERT INTO closingstock (item,quantity,date,category) VALUES (?,?,?,?)`; 
+    await conn.promise().query(sql,[item,finalQuantity,date,category], function(err, result) {
       if (err) throw err; 
     });
   
@@ -69,9 +69,10 @@ router.post('/add', async (req, res) => {
 
 router.post('/getCategoryVendor',function(req,res){
 let item=req.body.item;
-let sql=`select vendorName,category from vendor where category = (select distinct(category) from category where item='${item}' limit 1)`;
+let sql=`select vendorName,category from vendor where category = (select distinct(category) from category where item='${item}' )`;
 db.query(sql,item,function(err,result){
   if(err) throw err;
+  console.log(result)
   res.send(result);
 })   
 
