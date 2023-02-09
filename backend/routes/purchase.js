@@ -32,6 +32,7 @@ router.post('/add', async (req, res) => {
   var purchaseQuantity=parseInt(arr[i].quantity);
   var amountkg=arr[i].amount;
   var amount=arr[i].total;
+  console.log(amountkg,amount,date) 
   // var vendor=arr[i].vendor;
   var sql = `INSERT INTO purchase (item,category,quantity,amountkg,amount,date) VALUES (?,?,?,?,?,?)`;
   // var sql1 = `Insert ignore into category (item,category) values (?,?)`
@@ -55,17 +56,19 @@ const currentQuantity = currqty[0][0].quantity;
 
   const finalQuantity = (currentQuantity + purchaseQuantity);
   console.log(finalQuantity);
-
+  await db.promise().query(sql,[item,category,purchaseQuantity,amountkg,amount,date], function(err, result) {
+    if (err) throw err;
+  });
   if (dbItemName=="undefined"){
 
     var sql3 = `INSERT INTO current (item,category,quantity) VALUES (?,?,?)`;
-    await db.promise().query(sql,[item,category,finalQuantity], function(err, result) {
+    await db.promise().query(sql3,[item,category,finalQuantity], function(err, result) {
       if (err) throw err;
     });
 
     var sql4 = `INSERT INTO category (item,category) VALUES (?,?)`;
 
-    await db.promise().query(sql,[item,category], function(err, result) {
+    await db.promise().query(sql4,[item,category], function(err, result) {
       if (err) throw err;
     });
 
@@ -78,9 +81,7 @@ const currentQuantity = currqty[0][0].quantity;
 
   }
 
-  await db.promise().query(sql,[item,category,purchaseQuantity,amountkg,amount,date], function(err, result) {
-    if (err) throw err;
-  });
+  
   // await db.promise().query(sql1,[item,category], function(err, re) {
   //   if (err) throw err;
   // });
@@ -89,8 +90,8 @@ const currentQuantity = currqty[0][0].quantity;
   // }); 
 
   // db.promise().query(`update current set quantity=${finalQuantity} where item='${item}'`);
-    var sql = `INSERT INTO closingstock (item,quantity,date,category) VALUES (?,?,?,?)`; 
-    await db.promise().query(sql,[item,finalQuantity,date,category], function(err, result) {
+    var sql5 = `INSERT INTO closingstock (item,quantity,date,category) VALUES (?,?,?,?)`; 
+    await db.promise().query(sql5,[item,finalQuantity,date,category], function(err, result) {
       if (err) throw err; 
     });
   
@@ -101,7 +102,7 @@ const currentQuantity = currqty[0][0].quantity;
 
 router.post('/getCategoryVendor',function(req,res){
 let item=req.body.item;
-let sql=`select vendorName,category from vendor where category = (select distinct(category) from category where item='${item}' )`;
+let sql=`select category from category where item='${item}'`;
 db.query(sql,item,function(err,result){
   if(err) throw err;
   console.log(result)
