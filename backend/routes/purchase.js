@@ -29,36 +29,66 @@ router.post('/add', async (req, res) => {
   for(let i=0;i<length;i++){
   var item=arr[i].item;
   var category=arr[i].category;
-  var quantity=parseInt(arr[i].quantity);
+  var purchaseQuantity=parseInt(arr[i].quantity);
   var amountkg=arr[i].amount;
   var amount=arr[i].total;
-  var vendor=arr[i].vendor;
+  // var vendor=arr[i].vendor;
   var sql = `INSERT INTO purchase (item,category,quantity,amountkg,amount,date) VALUES (?,?,?,?,?,?)`;
-  var sql1 = `Insert ignore into category (item,category) values (?,?)`
+  // var sql1 = `Insert ignore into category (item,category) values (?,?)`
   // var sql2 = `Insert ignore into vendor (vendorName,category) values (?,?)`
   
     
 
-  const currqty = await db.promise().query(`select * from current where item='${item}'`);
-  console.log(currqty,"CURR")
-  // const currentQuantity = parseInt(currqty[0][0].quantity);
-  const currentQuantity =0;
-  console.log(currentQuantity)
+  const currqty = await db.promise().query(`SELECT COALESCE(c.quantity, 0) as quantity,
+  COALESCE(c.item, 'undefined') as item
+FROM (SELECT '${item}' as item) q
+LEFT JOIN current c
+ON c.item = q.item
+LIMIT 1`);
 
-  const finalQuantity = (currentQuantity + quantity);
+const dbItemName = currqty[0][0].item;
+const currentQuantity = currqty[0][0].quantity;
+  
+  // const currentQuantity = parseInt(currqty[0][0].quantity);
+  
+  console.log(dbItemName,purchaseQuantity, currentQuantity)
+
+  const finalQuantity = (currentQuantity + purchaseQuantity);
   console.log(finalQuantity);
 
-  await db.promise().query(sql,[item,category,quantity,amountkg,amount,date], function(err, result) {
+  if (dbItemName=="undefined"){
+
+    var sql3 = `INSERT INTO current (item,category,quantity) VALUES (?,?,?)`;
+    await db.promise().query(sql,[item,category,finalQuantity], function(err, result) {
+      if (err) throw err;
+    });
+
+    var sql4 = `INSERT INTO category (item,category) VALUES (?,?)`;
+
+    await db.promise().query(sql,[item,category], function(err, result) {
+      if (err) throw err;
+    });
+
+    // closing stock
+
+  }
+  else{
+
+    db.promise().query(`update current set quantity=${finalQuantity} where item='${item}'`);
+
+  }
+
+  await db.promise().query(sql,[item,category,purchaseQuantity,amountkg,amount,date], function(err, result) {
     if (err) throw err;
   });
-  await db.promise().query(sql1,[item,category], function(err, re) {
-    if (err) throw err;
-  });
+  // await db.promise().query(sql1,[item,category], function(err, re) {
+  //   if (err) throw err;
+  // });
   // await db.promise().query(sql2,[category,vendor], function(err, res) {
   //   if (err) throw err;
   // }); 
 
-  db.promise().query(`update current set quantity=${finalQuantity} where item='${item}'`);
+  // db.promise().query(`update current set quantity=${finalQuantity} where item='${item}'`);
     var sql = `INSERT INTO closingstock (item,quantity,date,category) VALUES (?,?,?,?)`; 
     await db.promise().query(sql,[item,finalQuantity,date,category], function(err, result) {
       if (err) throw err; 
