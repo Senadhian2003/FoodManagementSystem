@@ -39,7 +39,7 @@ router.post('/add', async (req, res) => {
   
     
 
-  const currqty = await conn.promise().query(`select * from current where item='${item}'`);
+  const currqty = await db.promise().query(`select * from current where item='${item}'`);
   const currentQuantity = parseInt(currqty[0][0].quantity);
   console.log(currentQuantity)
 
@@ -52,13 +52,13 @@ router.post('/add', async (req, res) => {
   await db.promise().query(sql1,[item,category], function(err, re) {
     if (err) throw err;
   });
-  await db.promise().query(sql2,[category,vendor], function(err, res) {
+  await db.promise().query(sql2,[vendor,category], function(err, res) {
     if (err) throw err;
   }); 
 
-  conn.promise().query(`update current set quantity=${finalQuantity} where item='${item}'`);
+  db.promise().query(`update current set quantity=${finalQuantity} where item='${item}'`);
     var sql = `INSERT INTO closingstock (item,quantity,date,category) VALUES (?,?,?,?)`; 
-    await conn.promise().query(sql,[item,finalQuantity,date,category], function(err, result) {
+    await db.promise().query(sql,[item,finalQuantity,date,category], function(err, result) {
       if (err) throw err; 
     });
   
