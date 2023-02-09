@@ -35,12 +35,14 @@ router.post('/add', async (req, res) => {
   var vendor=arr[i].vendor;
   var sql = `INSERT INTO purchase (item,category,quantity,amountkg,amount,date) VALUES (?,?,?,?,?,?)`;
   var sql1 = `Insert ignore into category (item,category) values (?,?)`
-  var sql2 = `Insert ignore into vendor (vendorName,category) values (?,?)`
+  // var sql2 = `Insert ignore into vendor (vendorName,category) values (?,?)`
   
     
 
-  const currqty = await conn.promise().query(`select * from current where item='${item}'`);
-  const currentQuantity = parseInt(currqty[0][0].quantity);
+  const currqty = await db.promise().query(`select * from current where item='${item}'`);
+  console.log(currqty,"CURR")
+  // const currentQuantity = parseInt(currqty[0][0].quantity);
+  const currentQuantity =0;
   console.log(currentQuantity)
 
   const finalQuantity = (currentQuantity + quantity);
@@ -52,13 +54,13 @@ router.post('/add', async (req, res) => {
   await db.promise().query(sql1,[item,category], function(err, re) {
     if (err) throw err;
   });
-  await db.promise().query(sql2,[category,vendor], function(err, res) {
-    if (err) throw err;
-  }); 
+  // await db.promise().query(sql2,[category,vendor], function(err, res) {
+  //   if (err) throw err;
+  // }); 
 
-  conn.promise().query(`update current set quantity=${finalQuantity} where item='${item}'`);
+  db.promise().query(`update current set quantity=${finalQuantity} where item='${item}'`);
     var sql = `INSERT INTO closingstock (item,quantity,date) VALUES (?,?,?)`; 
-    await conn.promise().query(sql,[item,finalQuantity,date], function(err, result) {
+    await db.promise().query(sql,[item,finalQuantity,date], function(err, result) {
       if (err) throw err; 
     });
   
@@ -69,7 +71,8 @@ router.post('/add', async (req, res) => {
 
 router.post('/getCategoryVendor',function(req,res){
 let item=req.body.item;
-let sql=`select vendorName,category from vendor where category = (select distinct(category) from category where item='${item}' limit 1)`;
+console.log(item)
+let sql=`select category from category where item='${item}'`;
 db.query(sql,item,function(err,result){
   if(err) throw err;
   res.send(result);

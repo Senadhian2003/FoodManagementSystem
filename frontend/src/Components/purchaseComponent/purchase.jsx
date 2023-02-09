@@ -42,7 +42,7 @@ export default function Purchase() {
     let id=e.target.id; 
     console.log(id)
     let category = document.getElementById(id[0]+" category");
-    let vendor = document.getElementById(id[0]+" vendor"); 
+    // let vendor = document.getElementById(id[0]+" vendor"); 
     axios
       .post("http://localhost:3002/purchase/getCategoryVendor", {
         item:item,
@@ -51,7 +51,7 @@ export default function Purchase() {
         console.log(response)
         console.log(response.data[0].category);
         category.value = response.data[0].category;
-        vendor.value = response.data[0].vendorName;
+        // vendor.value = response.data[0].vendorName;
       })
       .catch(function (error) {
         console.log(error);
@@ -62,14 +62,14 @@ export default function Purchase() {
     let arr = [];
     let date = document.getElementById("date").value;
     class Obj {
-      constructor(item,category,quantity,amount,total,vendor) {
+      constructor(item,category,quantity,amount,total) {
         this.item = item;
         this.category = category;
         this.quantity = quantity;
         this.amount = amount;
         this.total = total;
         this.date = date;
-        this.vendor = vendor;
+        // this.vendor = vendor;
       }
     }
     for (let i = 1; i < counter; i++) {
@@ -78,8 +78,8 @@ export default function Purchase() {
       let quantity=document.getElementById(i+" quantity").value;
       let amountkg=document.getElementById(i+" amount").value;
       let amount=document.getElementById(i+" total").value;
-      let vendor = document.getElementById(i+" vendor").value;
-      let obj = new Obj(item,category,quantity,amountkg,amount,vendor);
+      // let vendor = document.getElementById(i+" vendor").value;
+      let obj = new Obj(item,category,quantity,amountkg,amount);
       arr.push(obj);
       console.log(arr,"SEE");
     }
@@ -113,7 +113,7 @@ export default function Purchase() {
     let cell4 = row.insertCell();
     let cell5 = row.insertCell();
     let cell6 = row.insertCell();
-    let cell7 = row.insertCell();
+    
 
     const purchaseInput = document.createElement("input");
     purchaseInput.setAttribute("type","text");
@@ -151,12 +151,12 @@ export default function Purchase() {
     cell3.appendChild(input1);
 
 
-    let input2 = document.createElement("input");
-    input2.setAttribute("type", "text");
-    input2.setAttribute("placeholder", "Vendor");
-    input2.setAttribute("class", "form-control");
-    input2.setAttribute("id", ctr + " vendor");
-    cell4.appendChild(input2);
+    // let input2 = document.createElement("input");
+    // input2.setAttribute("type", "text");
+    // input2.setAttribute("placeholder", "Vendor");
+    // input2.setAttribute("class", "form-control");
+    // input2.setAttribute("id", ctr + " vendor");
+    // cell4.appendChild(input2);
 
 
     let input3 = document.createElement("input");
@@ -165,7 +165,7 @@ export default function Purchase() {
     input3.setAttribute("class", "form-control");
     input3.setAttribute("id", ctr + " quantity");
     input3.addEventListener("change",totAmount, false);
-    cell5.appendChild(input3);
+    cell4.appendChild(input3);
 
 
     let input4 = document.createElement("input");
@@ -174,7 +174,7 @@ export default function Purchase() {
     input4.setAttribute("class", "form-control");
     input4.setAttribute("id", ctr + " amount");
     input4.addEventListener("change",totAmount, false);
-    cell6.appendChild(input4);
+    cell5.appendChild(input4);
 
     let input5 = document.createElement("input");
     input5.setAttribute("type", "number");
@@ -182,7 +182,7 @@ export default function Purchase() {
     input5.setAttribute("class", "form-control");
     input5.setAttribute("id", ctr + " total");
     input5.disabled=true;
-    cell7.appendChild(input5);
+    cell6.appendChild(input5);
 
     cell1.innerHTML = ctr;
     ctr+=1;
@@ -228,7 +228,7 @@ export default function Purchase() {
             <tr>
               <th>Items</th>
               <th>Category</th>
-              <th>Vendors</th>
+              {/* <th>Vendors</th> */}
               <th>Quantity</th>
               <th>Amount</th>
               </tr>
@@ -253,7 +253,7 @@ export default function Purchase() {
               <th>SNo</th>
               <th>Select Item</th>
               <th>Category</th>
-              <th>Vendor</th>
+              {/* <th>Vendor</th> */}
               <th>Quantity</th>
               <th>Amount</th>
               <th>Total Amount</th>
@@ -290,7 +290,7 @@ export default function Purchase() {
                   />
                 </div>
               </td>
-              <td>
+              {/* <td>
                 <div className="input-group mb-3">
                   <input
                     type="text"
@@ -301,7 +301,7 @@ export default function Purchase() {
                     defaultValue=""
                   />
                 </div>
-              </td>
+              </td> */}
               <td>
                 <div className="input-group mb-3">
                   <input
