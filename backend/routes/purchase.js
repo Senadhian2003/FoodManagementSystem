@@ -35,12 +35,14 @@ router.post('/add', async (req, res) => {
   var vendor=arr[i].vendor;
   var sql = `INSERT INTO purchase (item,category,quantity,amountkg,amount,date) VALUES (?,?,?,?,?,?)`;
   var sql1 = `Insert ignore into category (item,category) values (?,?)`
-  var sql2 = `Insert ignore into vendor (vendorName,category) values (?,?)`
+  // var sql2 = `Insert ignore into vendor (vendorName,category) values (?,?)`
   
     
 
   const currqty = await db.promise().query(`select * from current where item='${item}'`);
-  const currentQuantity = parseInt(currqty[0][0].quantity);
+  console.log(currqty,"CURR")
+  // const currentQuantity = parseInt(currqty[0][0].quantity);
+  const currentQuantity =0;
   console.log(currentQuantity)
 
   const finalQuantity = (currentQuantity + quantity);
@@ -52,9 +54,9 @@ router.post('/add', async (req, res) => {
   await db.promise().query(sql1,[item,category], function(err, re) {
     if (err) throw err;
   });
-  await db.promise().query(sql2,[vendor,category], function(err, res) {
-    if (err) throw err;
-  }); 
+  // await db.promise().query(sql2,[category,vendor], function(err, res) {
+  //   if (err) throw err;
+  // }); 
 
   db.promise().query(`update current set quantity=${finalQuantity} where item='${item}'`);
     var sql = `INSERT INTO closingstock (item,quantity,date,category) VALUES (?,?,?,?)`; 
