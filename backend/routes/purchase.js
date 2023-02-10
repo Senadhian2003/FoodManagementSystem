@@ -29,9 +29,9 @@ router.post('/add', async (req, res) => {
   for(let i=0;i<length;i++){
   var item=arr[i].item;
   var category=arr[i].category;
-  var purchaseQuantity=parseInt(arr[i].quantity);
-  var amountkg=arr[i].amount;
-  var amount=arr[i].total;
+  var purchaseQuantity=Number(arr[i].quantity);
+  var amountkg=Number(arr[i].amount);
+  var amount=Number(arr[i].total);
   console.log(amountkg,amount,date) 
   // var vendor=arr[i].vendor;
   var sql = `INSERT INTO purchase (item,category,quantity,amountkg,amount,date) VALUES (?,?,?,?,?,?)`;

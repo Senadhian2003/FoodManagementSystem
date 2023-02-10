@@ -64,18 +64,18 @@ export default function Dispatch() {
     // console.log(id,place)
     let quantity = document.getElementById(id + " totquantity");
 
-    let totQuantity = parseFloat(quantity.value);
+    let totQuantity = Number(quantity.value);
     let currQuantity = document.getElementById(id + " currquantity");
-    let rmk = parseFloat(document.getElementById(id + " RMK").value);
-    let rmd = parseFloat(document.getElementById(id + " RMD").value);
-    let rmkcet = parseFloat(document.getElementById(id + " RMKCET").value);
-    let school = parseFloat(document.getElementById(id + " SCHOOL").value);
+    let rmk = Number(document.getElementById(id + " RMK").value);
+    let rmd = Number(document.getElementById(id + " RMD").value);
+    let rmkcet = Number(document.getElementById(id + " RMKCET").value);
+    let school = Number(document.getElementById(id + " SCHOOL").value);
 
     let currentQuantity = totQuantity - (rmk + rmd + rmkcet + school);
     if(currentQuantity<0){
       window.alert("Item Quantity exceeded max limit")
       let x =document.getElementById(id+' '+place);
-      currentQuantity+=parseFloat(x.value);
+      currentQuantity+=Number(x.value);
       x.value=0;
     }
 
