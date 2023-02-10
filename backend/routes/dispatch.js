@@ -26,7 +26,7 @@ router.post('/getQuantity',async(req,res)=>{
 router.post('/updateDispatch',async(req,res)=>{
 
     const arr = req.body.ItemArray;
-    // console.log(arr)
+    console.log(arr)
     let length = arr.length;
     // console.log(length)
     let i=0;

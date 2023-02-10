@@ -22,11 +22,12 @@ router.get('/getItems', async(req,res)=>{
 
 router.post('/add', async (req, res) => {
   console.log("jus print");
-  var arr = req.body.arr;
+  var arr = req.body.arr; 
+  console.log(arr)
   // console.log(req.body.arr);
   var length = arr.length;
   let date=req.body.date;
-  for(let i=0;i<length;i++){
+  for(let i=0;i<length;i++){  
   var item=arr[i].item;
   var category=arr[i].category;
   var purchaseQuantity=Number(arr[i].quantity);
@@ -76,7 +77,7 @@ const currentQuantity = currqty[0][0].quantity;
 
   }
   else{
-
+    console.log(finalQuantity,item)
     db.promise().query(`update current set quantity=${finalQuantity} where item='${item}'`);
 
   }

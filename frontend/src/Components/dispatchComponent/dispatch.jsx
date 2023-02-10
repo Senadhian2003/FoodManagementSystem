@@ -99,7 +99,12 @@ export default function Dispatch() {
     }
 
     for (let i = 1; i < counter; i++) {
+      
       let item = document.getElementById(i).value;
+      console.log(item)
+      if(item=="select"){
+        break
+      }
       let currentQuantity = document.getElementById(i + " currquantity").value;
       let rmk = document.getElementById(i + " RMK").value;
       let rmd = document.getElementById(i + " RMD").value;
@@ -181,6 +186,7 @@ export default function Dispatch() {
     input1.setAttribute("id", ctr + " totquantity");
     input1.defaultValue = 0;
     input1.disabled = true;
+    input1.min=0;
 
     cell3.appendChild(input1);
 
@@ -193,9 +199,10 @@ export default function Dispatch() {
     input3.setAttribute("placeholder", "RMK");
     input3.setAttribute("class", "form-control");
     input3.setAttribute("id", ctr + " RMK");
+    input3.setAttribute("min",0);
     input3.defaultValue = 0;
     input3.addEventListener("change", addValue, false);
-
+    
     cell4.appendChild(input3);
 
     //RMD
@@ -206,6 +213,7 @@ export default function Dispatch() {
     input4.setAttribute("class", "form-control");
     input4.setAttribute("id", ctr + " RMD");
     input4.defaultValue = 0;
+    input4.setAttribute("min",0);
     input4.addEventListener("change", addValue, false);
 
     cell5.appendChild(input4);
@@ -217,6 +225,7 @@ export default function Dispatch() {
     input5.setAttribute("id", ctr + " RMKCET");
     input5.defaultValue = 0;
     input5.addEventListener("change", addValue, false);
+    input5.setAttribute("min",0);
 
     cell6.appendChild(input5);
 
@@ -228,7 +237,7 @@ export default function Dispatch() {
     input6.setAttribute("id", ctr + " SCHOOL");
     input6.defaultValue = 0;
     input6.addEventListener("change", addValue, false);
-
+    input6.setAttribute("min",0);
     cell7.appendChild(input6);
 
     //current Quantity
@@ -266,12 +275,12 @@ export default function Dispatch() {
         <div className="row r-dis">
           <div className="col-3 dat-d">
           <label for="date"> <b>Date:</b></label>
- <input type="date" id="date" name="date" className="inpt-d"/>
+ <input type="date" id="date" name="date" className="inpt-d" required/>
           </div>
            <div className="col-3"></div>
            <div className="col-3">
             <label for="number" id="row" className="lab-d"><b>Enter number of rows :</b></label>
-          <input type="number" id="num"  className="inpt-r"/>
+          <input type="number" id="num"  className="inpt-r" min="1" defaultValue={1}/>
           <button class="btn btn-primary btn-pur" id="add-btn" onClick={addRow}>Add</button>
           {/* <button onClick={()=>{setmod(true)}}>Add Item</button> */}
               </div>
@@ -302,7 +311,7 @@ export default function Dispatch() {
           onChange={getQuantity}
           id="1"
         >
-          <option selected>Select</option>
+          <option selected value="select">Select</option>
 
           {items.map((item, idx) => {
             return (
@@ -339,6 +348,7 @@ export default function Dispatch() {
             id="1 RMK"
             defaultValue={0}
             onChange={addValue}
+            min={0}
           />
         </div>
       </td>
@@ -354,6 +364,7 @@ export default function Dispatch() {
             id="1 RMD"
             defaultValue={0}
             onChange={addValue}
+            min={0}
           />
         </div>
       </td>
@@ -368,6 +379,7 @@ export default function Dispatch() {
             id="1 RMKCET"
             defaultValue={0}
             onChange={addValue}
+            min={0}
           />
         </div>
       </td>
@@ -382,6 +394,7 @@ export default function Dispatch() {
             id="1 SCHOOL"
             defaultValue={0}
             onChange={addValue}
+            min={0}
           />
         </div>
       </td>

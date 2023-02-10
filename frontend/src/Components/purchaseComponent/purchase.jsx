@@ -74,11 +74,15 @@ export default function Purchase() {
     }
     for (let i = 1; i < counter; i++) {
       let item = document.getElementById(i+" item").value;
+      if(item=="select"){
+        break;
+      }
       let category = document.getElementById(i+" category").value;
       let quantity=document.getElementById(i+" quantity").value;
       let amountkg=document.getElementById(i+" amount").value;
       let amount=document.getElementById(i+" total").value;
       // let vendor = document.getElementById(i+" vendor").value;
+     
       let obj = new Obj(item,category,quantity,amountkg,amount);
       arr.push(obj);
       console.log(arr,"SEE");
@@ -120,6 +124,7 @@ export default function Purchase() {
     purchaseInput.setAttribute("list","item");
     purchaseInput.setAttribute("id", ctr +" item");
     purchaseInput.addEventListener("blur", getCategory);
+    purchaseInput.setAttribute("value", "select");
     const datalist = document.createElement("datalist");
     datalist.setAttribute("class", "form-select");
     
@@ -127,8 +132,8 @@ export default function Purchase() {
     const option = document.createElement("option");
     const optionText = document.createTextNode("");
     option.appendChild(optionText);
-    option.setAttribute("value", "select");
     
+  
     
     datalist.appendChild(option);
 
@@ -205,12 +210,12 @@ export default function Purchase() {
             <div className="row r-dis">
               <div className="col-3">
               <label for="date" id="date-label"><b >date:</b></label>
-          <input type="date" id="date" name="date" className="inpt-d"/>
+          <input type="date" id="date" name="date" className="inpt-d" />
               </div>
               <div className="col-3"></div>
               <div className="col-3">
               <label for="number" id="row"><b>enter number of rows :</b> </label>
-          <input type="number" id="num"  className="inpt-r"/>
+          <input type="number" id="num"  className="inpt-r" min='0' defaultValue={1}/>
           <button class="btn btn-primary btn-pur" id="add-btn" onClick={generateRows}>Add</button>
           {/* <button onClick={()=>{setmod(true)}}>Add Item</button> */}
               </div>
